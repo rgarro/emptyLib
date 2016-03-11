@@ -13,12 +13,10 @@ package emptyLib.Games._2D
 		
 		public function Turrets()
 		{
-			this.placeHolder1 = new PlaceHolder();
-			this.placeHolder2 = new PlaceHolder();
-			this.placeHolder3 = new PlaceHolder();
-			placeHolder1.x = 200; placeHolder1.y = 60;
-			placeHolder2.x = 60; placeHolder2.y = 260;
-			placeHolder3.x = 350; placeHolder3.y = 260;
+			this.placeHolder1 = new PlaceHolder(200,60,0x646390);
+			this.placeHolder2 = new PlaceHolder(60,260,0x646390);
+			this.placeHolder3 = new PlaceHolder(350,260,0x646390);
+			
 			this.addChild(placeHolder1);
 			this.addChild(placeHolder2);
 			this.addChild(placeHolder3);

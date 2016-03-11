@@ -5,13 +5,15 @@ package emptyLib.Games._2D.Turrets
 	
 	public class PlaceHolder extends Sprite
 	{
-		public function PlaceHolder()
+		public function PlaceHolder(x:int,y:int,color:uint)
 		{
 			super();
 			var g:Graphics = this.graphics;
-			g.beginFill(0xCE7822);
+			g.beginFill(color);
 			g.drawCircle(0,0,20);
 			g.endFill();
+			this.x = x;
+			this.y = y;
 		}
 	}
 }
