@@ -3,6 +3,7 @@ package emptyLib.Games._2D
 	import flash.display.Sprite;
 	
 	import emptyLib.Games._2D.Turrets.PlaceHolder;
+	import emptyLib.Games._2D.Turrets.Turret;
 	
 	
 	public class Turrets extends Sprite
@@ -20,6 +21,9 @@ package emptyLib.Games._2D
 			this.addChild(placeHolder1);
 			this.addChild(placeHolder2);
 			this.addChild(placeHolder3);
+			
+			var turret:Turret = new Turret(0x90c3d4,20);
+			this.addChild(turret);
 		}
 		
 	}
