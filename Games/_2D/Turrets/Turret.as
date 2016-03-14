@@ -5,7 +5,7 @@ package emptyLib.Games._2D.Turrets
 	
 	public class Turret extends Sprite
 	{
-		public var graphic:Graphics;
+		public var graphict:Graphics;
 		public var t_color:uint;
 		public var radius:Number;
 		
@@ -20,13 +20,21 @@ package emptyLib.Games._2D.Turrets
 			this.visible = false;
 		}
 		
+		public function show():void{
+			this.visible = true;
+		}
+		
+		public function hide():void{
+			this.visible = false;
+		}
+		
 		private function draw():void{
-			this.graphic = new Graphics();
-			this.graphic.beginFill(this.t_color);
-			this.graphic.drawCircle(0,0,this.radius);
-			this.graphic.beginFill(0x800000);
-			this.graphic.drawRect(0,-5,25,10);
-			this.graphic.endFill();
+			this.graphict = this.graphics;
+			this.graphict.beginFill(this.t_color);
+			this.graphict.drawCircle(0,0,this.radius);
+			this.graphict.beginFill(0x800000);
+			this.graphict.drawRect(0,-5,25,10);
+			this.graphict.endFill();
 		}
 	}
 }
