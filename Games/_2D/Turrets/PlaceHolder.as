@@ -8,9 +8,10 @@ package emptyLib.Games._2D.Turrets
 	
 	public class PlaceHolder extends Sprite
 	{
-		public var turrets:Array;
 		
-		public function PlaceHolder(x:int,y:int,color:uint)
+		public var turret:Turret;
+		
+		public function PlaceHolder(x:int,y:int,color:uint,turret:Turret)
 		{
 			super();
 			this.turret = turret;

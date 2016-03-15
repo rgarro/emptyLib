@@ -2,6 +2,7 @@ package emptyLib.Games._2D.Turrets
 {
 	import flash.display.Graphics;
 	import flash.display.Sprite;
+	import flash.events.Event;
 	
 	public class Turret extends Sprite
 	{
@@ -17,7 +18,8 @@ package emptyLib.Games._2D.Turrets
 			this.draw();
 			this.alpha = 0.5;
 			this.mouseEnabled = false;
-			this.visible = false;
+			//this.visible = false;
+			this.addEventListener(Event.ENTER_FRAME,loop);
 		}
 		
 		public function show():void{
@@ -26,6 +28,15 @@ package emptyLib.Games._2D.Turrets
 		
 		public function hide():void{
 			this.visible = false;
+		}
+		
+		private function loop(e:Event):void{
+			this.pointToPointer();
+		}
+		
+		private function pointToPointer():void{
+			var angle:Number = Math.atan2(stage.mouseY - this.y,stage.mouseX - this.x) / Math.PI * 180;
+			this.rotation = angle;
 		}
 		
 		private function draw():void{
