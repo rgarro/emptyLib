@@ -28,5 +28,17 @@ package emptyLib.Embeders
 		public function get heinekenMigData():BitmapData{
 			return _heinekenMig.bitmapData;
 		}
+		
+		[Embed(source="../Assets/War/libianToyota.png")]
+		private var libianToyotac:Class;
+		private var _libianToyota:Bitmap = new libianToyotac() as Bitmap;
+		
+		public function get libianToyota():Bitmap{
+			return _libianToyota;
+		}
+		
+		public function get libianToyotaData():BitmapData{
+			return _libianToyota.bitmapData;
+		}
 	}
 }

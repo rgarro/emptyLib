@@ -1,4 +1,4 @@
-package emptyLib.Games.War.Planes
+package emptyLib.Games.War.Trucks
 {
 	import flash.display.Bitmap;
 	import flash.display.Sprite;
@@ -8,7 +8,7 @@ package emptyLib.Games.War.Planes
 	
 	import emptyLib.Embeders.War;
 	
-	public class Mig21 extends Sprite
+	public class LibianToyota extends Sprite
 	{
 		private var body:Bitmap;
 		public var speed:Number = 5;
@@ -16,14 +16,13 @@ package emptyLib.Games.War.Planes
 		public var left:Boolean = false;
 		public var down:Boolean = false;
 		public var right:Boolean = false;
-		/*private var withY:Boolean = false;
-		private var withRot:Number = 0;*/
 		
-		public function Mig21()
+		
+		public function LibianToyota()
 		{
-			super();			
+			super();
 			var assets:War = new War();
-			this.body = new Bitmap(assets.heinekenMigData);
+			this.body = new Bitmap(assets.libianToyotaData);
 			this.addChild(this.body);
 			
 			this.addEventListener(Event.ADDED_TO_STAGE,init);
@@ -66,7 +65,7 @@ package emptyLib.Games.War.Planes
 			if( right && down && !left && !up ) {
 				this.rotation = 135;
 			}
-
+			
 			if( this.y < stage.y ){
 				this.y = stage.height;
 			}
@@ -114,6 +113,5 @@ package emptyLib.Games.War.Planes
 					break;
 			}
 		}
-		
 	}
 }
