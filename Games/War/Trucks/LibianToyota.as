@@ -4,9 +4,12 @@ package emptyLib.Games.War.Trucks
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
+	import flash.filters.BlurFilter;
 	import flash.ui.Keyboard;
 	
 	import emptyLib.Embeders.War;
+	import emptyLib.Games.War.Effects.SmokeParticle;
+	import emptyLib.Tools.FPSCounter;
 	
 	public class LibianToyota extends Sprite
 	{
@@ -48,6 +51,7 @@ package emptyLib.Games.War.Trucks
 			if( up && !down ) {
 				this.y -= speed;
 				this.rotation = 0;
+				this.muffleSmoke();
 			}
 			if( down && !up ) {
 				this.y += speed;
@@ -79,6 +83,60 @@ package emptyLib.Games.War.Trucks
 				this.x = stage.x;
 			}
 		}
+		
+		public function muffleSmoke():void
+		{
+			addChild(new FPSCounter(510, 0));
+			
+			var particleArray:Array = new Array();
+			
+			var numberOfParticles:uint = 1; // How many particles to add per frame
+			var particleLimit:uint = 80; // 150 is a good number, but the frame-rate suffers =/
+			var animating:Boolean = false; // Flag to keep track of whether we are currently animating
+			
+			// Create a new movie clip to add the particles to.
+			// The reason we do this is so that we can add the particles to the
+			// new sprite then apply a blur filter to our sprite canvas. This means
+			// we can apply the blur to our particles without blurring absolutely
+			// everything that we add to the stage (i.e. fps etc. remains unblurred)
+			var particleCanvas:Sprite = new Sprite();
+			addChild(particleCanvas);
+			
+			// Add our blur to the canvas sprite we just created.
+			// BlurFilter switches: x blur, y-blur-amount, quality (1 = low, 2 = normal, 3 = high)
+			// Notice that we're using a number which is a power of 2 for the blur amount;
+			// this increases performance because the filters are optimised for powers of 2!
+			particleCanvas.filters = [new BlurFilter(8, 8, 1)];
+			var smoke:SmokeParticle;
+			
+			// Loop to create numberOfParticles per frame
+			for (var loop:uint = 0; loop < numberOfParticles; loop++) {
+				
+				// Create a new particle and push it into our array
+				smoke = new SmokeParticle(this.x, this.y)
+				particleArray.push(smoke);
+				
+				// Add our particle to the particleCanvas sprite, not directly to the stage!
+				particleCanvas.addChild(smoke);
+				
+				// If we've hit our limit for the number of particles allowed on stage...
+				if (particleArray.length == particleLimit) {
+					
+					// ...call our particle destructor to unbind the particle's event listener
+					// and remove the particle from the stage
+					particleArray[0].ParticleDestructor();
+					
+					// Destroy the particle.
+					// Note: SOME-ARRAY.shift gets rid of the first element of the array
+					// and returns it, so if we weren't removing the particle from the stage
+					// in the destructor (which we are!), we could call shift and pass it to
+					// removeChild for removal from our canvas and destroy it in one fell swoop
+					// like this: particleCanvas_mc.removeChild(particleArray.shift());
+					particleArray.shift();
+				}
+				
+			}
+		} 
 		
 		private function onRelease(e:KeyboardEvent):void{
 			switch(e.keyCode){
