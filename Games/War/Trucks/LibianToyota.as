@@ -49,9 +49,9 @@ package emptyLib.Games.War.Trucks
 				this.rotation = 90;
 			}
 			if( up && !down ) {
+				this.muffleSmoke();
 				this.y -= speed;
 				this.rotation = 0;
-				this.muffleSmoke();
 			}
 			if( down && !up ) {
 				this.y += speed;
@@ -110,10 +110,10 @@ package emptyLib.Games.War.Trucks
 			var smoke:SmokeParticle;
 			
 			// Loop to create numberOfParticles per frame
-			for (var loop:uint = 0; loop < numberOfParticles; loop++) {
-				
+			for (var loop:uint = 0; loop < numberOfParticles; loop++) {				
 				// Create a new particle and push it into our array
-				smoke = new SmokeParticle(this.x, this.y)
+				smoke = new SmokeParticle(this.x, this.y);
+				
 				particleArray.push(smoke);
 				
 				// Add our particle to the particleCanvas sprite, not directly to the stage!
