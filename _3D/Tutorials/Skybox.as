@@ -78,7 +78,7 @@ package emptyLib._3D.Tutorials
 			this.addEventListener(Event.ENTER_FRAME, _onEnterFrame);
 			this.addEventListener(Event.ADDED_TO_STAGE,init);
 			
-			//onResize();
+			onResize();
 		}
 		
 		private function init(e:Event):void{
