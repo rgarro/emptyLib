@@ -1,16 +1,12 @@
 package emptyLib._3D.Tutorials
 {
+	
+	
 	import flash.display.Sprite;
-	import flash.display.StageAlign;
-	import flash.display.StageScaleMode;
-	import flash.events.Event;
-	import flash.geom.Vector3D;
 	
 	import away3d.cameras.lenses.PerspectiveLens;
 	import away3d.containers.View3D;
-	import away3d.core.base.Mesh;
-	import away3d.materials.ColorMaterial;
-	import away3d.primitives.Skybox;
+	
 	
 	[SWF(backgroundColor="#000000", frameRate="60", quality="LOW")]
 	
@@ -49,9 +45,9 @@ package emptyLib._3D.Tutorials
 			//setup the camera
 			_view.camera.z = -600;
 			_view.camera.y = 0;
-			_view.camera.lookAt(new Vector3D());
+			//_view.camera.lookAt(new Vector3D());
 			_view.camera.lens = new PerspectiveLens(90);
-			
+		/*	
 			//setup the cube texture
 			var cubeTexture:BitmapCubeTexture = new BitmapCubeTexture(Cast.bitmapData(EnvPosX), Cast.bitmapData(EnvNegX), Cast.bitmapData(EnvPosY), Cast.bitmapData(EnvNegY), Cast.bitmapData(EnvPosZ), Cast.bitmapData(EnvNegZ));
 			/*var xEnvNegX:Bitmap = new EnvNegX() as Bitmap; 
@@ -63,7 +59,7 @@ package emptyLib._3D.Tutorials
 			var cubeTexture:BitmapCubeTexture = new BitmapCubeTexture(xEnvPosX.bitmapData, xEnvNegX.bitmapData, xEnvPosY.bitmapData, xEnvNegY.bitmapData, xEnvPosZ.bitmapData,xEnvNegZ.bitmapData);			
 		*/
 			//setup the environment map material
-			var material:ColorMaterial = new ColorMaterial();
+			/*var material:ColorMaterial = new ColorMaterial();
 			material.addMethod(new EnvMapMethod(cubeTexture, 1));
 			
 			//setup the scene
@@ -77,37 +73,37 @@ package emptyLib._3D.Tutorials
 			this.addEventListener(Event.ENTER_FRAME, _onEnterFrame);
 			this.addEventListener(Event.ADDED_TO_STAGE,init);
 			
-			onResize();
+			onResize();*/
 		}
 		
-		private function init(e:Event):void{
+		/*private function init(e:Event):void{
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;
 			stage.addEventListener(Event.RESIZE, onResize);
-		}
+		}*/
 		
 		/**
 		 * render loop
 		 */
-		private function _onEnterFrame(e:Event):void
+		/*private function _onEnterFrame(e:Event):void
 		{
-			_torus.rotationX += 2;
-			_torus.rotationY += 1;
+			//_torus.rotationX += 2;
+			//_torus.rotationY += 1;
 			
 			_view.camera.position = new Vector3D();
 			_view.camera.rotationY += 0.5*(stage.mouseX-stage.stageWidth/2)/800;
 			_view.camera.moveBackward(600);
 			
 			_view.render();
-		}
+		}*/
 		
 		/**
 		 * stage listener for resize events
 		 */
-		private function onResize(event:Event = null):void
+		/*private function onResize(event:Event = null):void
 		{
 			_view.width = stage.stageWidth;
 			_view.height = stage.stageHeight;
-		}
+		}*/
 	}
 }

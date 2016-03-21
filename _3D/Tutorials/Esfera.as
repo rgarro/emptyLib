@@ -7,6 +7,8 @@ package emptyLib._3D.Tutorials
 	
 	public class Esfera extends Template
 	{
+	
+		
 		public function Esfera()
 		{
 			super();
@@ -14,8 +16,10 @@ package emptyLib._3D.Tutorials
 		
 		protected override function initScene():void{
 			super.initScene();
+			
 			var sphere:SphereGeometry = new SphereGeometry();
 			var mesh:Mesh = new Mesh(sphere);
+			
 			this.scene.addChild(mesh);
 		}
 	}
