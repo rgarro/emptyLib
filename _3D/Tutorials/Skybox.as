@@ -1,17 +1,16 @@
 package emptyLib._3D.Tutorials
 {
-	import away3d.cameras.lenses.*;
-	import away3d.containers.*;
-	import away3d.entities.*;
-	import away3d.materials.*;
-	import away3d.materials.methods.*;
-	import away3d.primitives.*;
-	import away3d.textures.*;
-	import away3d.utils.*;
-	
-	import flash.display.*;
-	import flash.events.*;
+	import flash.display.Sprite;
+	import flash.display.StageAlign;
+	import flash.display.StageScaleMode;
+	import flash.events.Event;
 	import flash.geom.Vector3D;
+	
+	import away3d.cameras.lenses.PerspectiveLens;
+	import away3d.containers.View3D;
+	import away3d.core.base.Mesh;
+	import away3d.materials.ColorMaterial;
+	import away3d.primitives.Skybox;
 	
 	[SWF(backgroundColor="#000000", frameRate="60", quality="LOW")]
 	
@@ -35,8 +34,8 @@ package emptyLib._3D.Tutorials
 		private var _view:View3D;
 		
 		//scene objects
-		private var _skyBox:SkyBox; 
-		private var _torus:Mesh;
+		//private var _skyBox:away3d.primitives.Skybox; 
+		//private var _torus:Mesh;
 		
 		/**
 		 * Constructor
