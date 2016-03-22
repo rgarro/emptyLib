@@ -26,7 +26,7 @@ package emptyLib._3D
 			_uv2 = uv2;
 		}
 		
-		protected  function buildGeometry(target:SubGeometry):void
+		protected function buildGeometry(target:SubGeometry):void
 		{
 			var rawVertices:Vector.<Number> = Vector.<Number>([_v0.x, _v0.y, _v0.z, _v1.x, _v1.y, _v1.z, _v2.x, _v2.y, _v2.z]);
 			var rawIndices:Vector.<uint> = Vector.<uint>([0, 1, 2]);
@@ -45,7 +45,7 @@ package emptyLib._3D
 			target.updateVertexTangentData(rawTangents);
 		}
 		
-		protected function buildUVs(target:SubGeometry):void
+		protected  function buildUVs(target:SubGeometry):void
 		{
 			if(_uv0 && _uv1 && _uv2)
 				var rawUvData:Vector.<Number> = Vector.<Number>([_uv0.x, _uv0.y, _uv1.x, _uv1.y, _uv2.x, _uv2.y]);
