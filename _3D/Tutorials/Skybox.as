@@ -3,9 +3,18 @@ package emptyLib._3D.Tutorials
 	
 	
 	import flash.display.Sprite;
+	import flash.events.Event;
+	import flash.geom.Vector3D;
 	
 	import away3d.cameras.lenses.PerspectiveLens;
 	import away3d.containers.View3D;
+	import away3d.entities.Mesh;
+	import away3d.materials.ColorMaterial;
+	import away3d.materials.methods.EnvMapMethod;
+	import away3d.primitives.SkyBox;
+	import away3d.primitives.TorusGeometry;
+	import away3d.textures.BitmapCubeTexture;
+	import away3d.utils.Cast;
 	
 	
 	[SWF(backgroundColor="#000000", frameRate="60", quality="LOW")]
@@ -14,24 +23,24 @@ package emptyLib._3D.Tutorials
 	{
 		// Environment map.
 		[Embed(source="../../Assets/3d/cubicle/positiveXd.jpg")]
-		private var EnvPosX:Class;
+		public static var EnvPosX:Class;
 		[Embed(source="../../Assets/3d/cubicle/positiveYd.jpg")]
-		private var EnvPosY:Class;
+		public static var EnvPosY:Class;
 		[Embed(source="../../Assets/3d/cubicle/positiveZd.jpg")]
-		private var EnvPosZ:Class;
+		public static var EnvPosZ:Class;
 		[Embed(source="../../Assets/3d/cubicle/negativeYd.jpg")]//../embeds/skybox/snow_negative_x.jpg
-		private var EnvNegX:Class;
+		public static var EnvNegX:Class;
 		[Embed(source="../../Assets/3d/cubicle/negativeYd.jpg")]
-		private var EnvNegY:Class;
+		public static var EnvNegY:Class;
 		[Embed(source="../../Assets/3d/cubicle/negativeYd.jpg")]//../embeds/skybox/snow_negative_z.jpg
-		private var EnvNegZ:Class;
+		public static var EnvNegZ:Class;
 		
 		//engine variables
 		private var _view:View3D;
 		
 		//scene objects
-		//private var _skyBox:away3d.primitives.Skybox; 
-		//private var _torus:Mesh;
+		private var _skyBox:SkyBox;
+		private var _torus:Mesh;
 		
 		/**
 		 * Constructor
@@ -43,11 +52,11 @@ package emptyLib._3D.Tutorials
 			addChild(_view);
 			
 			//setup the camera
-			_view.camera.z = -600;
-			_view.camera.y = 0;
+			//_view.camera.z = -600;
+			//_view.camera.y = 0;
 			//_view.camera.lookAt(new Vector3D());
-			_view.camera.lens = new PerspectiveLens(90);
-		/*	
+			//_view.camera.lens = new PerspectiveLens(90);
+		
 			//setup the cube texture
 			var cubeTexture:BitmapCubeTexture = new BitmapCubeTexture(Cast.bitmapData(EnvPosX), Cast.bitmapData(EnvNegX), Cast.bitmapData(EnvPosY), Cast.bitmapData(EnvNegY), Cast.bitmapData(EnvPosZ), Cast.bitmapData(EnvNegZ));
 			/*var xEnvNegX:Bitmap = new EnvNegX() as Bitmap; 
@@ -59,7 +68,7 @@ package emptyLib._3D.Tutorials
 			var cubeTexture:BitmapCubeTexture = new BitmapCubeTexture(xEnvPosX.bitmapData, xEnvNegX.bitmapData, xEnvPosY.bitmapData, xEnvNegY.bitmapData, xEnvPosZ.bitmapData,xEnvNegZ.bitmapData);			
 		*/
 			//setup the environment map material
-			/*var material:ColorMaterial = new ColorMaterial();
+			var material:ColorMaterial = new ColorMaterial();
 			material.addMethod(new EnvMapMethod(cubeTexture, 1));
 			
 			//setup the scene
@@ -73,37 +82,38 @@ package emptyLib._3D.Tutorials
 			this.addEventListener(Event.ENTER_FRAME, _onEnterFrame);
 			this.addEventListener(Event.ADDED_TO_STAGE,init);
 			
-			onResize();*/
+			onResize();
 		}
 		
-		/*private function init(e:Event):void{
-			stage.scaleMode = StageScaleMode.NO_SCALE;
-			stage.align = StageAlign.TOP_LEFT;
+		private function init(e:Event):void{
+			//stage.scaleMode.length
+			//stage.scaleMode = StageScaleMode.NO_SCALE;
+			//stage.align = StageAlign.TOP_LEFT;
 			stage.addEventListener(Event.RESIZE, onResize);
-		}*/
+		}
 		
 		/**
 		 * render loop
 		 */
-		/*private function _onEnterFrame(e:Event):void
+		private function _onEnterFrame(e:Event):void
 		{
-			//_torus.rotationX += 2;
-			//_torus.rotationY += 1;
+			_torus.rotationX += 2;
+			_torus.rotationY += 1;
 			
 			_view.camera.position = new Vector3D();
 			_view.camera.rotationY += 0.5*(stage.mouseX-stage.stageWidth/2)/800;
 			_view.camera.moveBackward(600);
 			
 			_view.render();
-		}*/
+		}
 		
 		/**
 		 * stage listener for resize events
 		 */
-		/*private function onResize(event:Event = null):void
+		private function onResize(event:Event = null):void
 		{
 			_view.width = stage.stageWidth;
 			_view.height = stage.stageHeight;
-		}*/
+		}
 	}
 }

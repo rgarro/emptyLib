@@ -4,6 +4,7 @@ package emptyLib._3D.Tutorials.away3d
 	import flash.events.KeyboardEvent;
 	
 	import away3d.core.base.Geometry;
+	import away3d.debug.Trident;
 	import away3d.entities.Mesh;
 	import away3d.materials.ColorMaterial;
 	import away3d.primitives.CapsuleGeometry;
@@ -30,6 +31,12 @@ package emptyLib._3D.Tutorials.away3d
 		
 		protected override function initScene():void{
 			super.initScene();
+			var trident:Trident = new Trident(50);
+			trident.x = 10,
+				trident.y = 10,
+				trident.z = 10,
+				view.camera.addChild(trident);
+			this.scene.addChild(view.camera); 
 			this.initCone();
 			this.renderEnd();
 		}
