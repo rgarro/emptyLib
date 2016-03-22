@@ -3,18 +3,25 @@ package emptyLib._3D.Tutorials.away3d
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	
+	import away3d.core.base.Geometry;
 	import away3d.entities.Mesh;
 	import away3d.materials.ColorMaterial;
 	import away3d.primitives.CapsuleGeometry;
 	import away3d.primitives.ConeGeometry;
+	import away3d.primitives.CylinderGeometry;
+	import away3d.primitives.PlaneGeometry;
+	import away3d.primitives.RegularPolygonGeometry;
 	import away3d.primitives.SphereGeometry;
+	import away3d.primitives.TorusGeometry;
 	
 	import emptyLib._3D.Template;
 	
 	public class Uvcoord extends Template
 	{
-		public var mesh:Mesh;
-		public var color:uint = 0xffe5ad;
+		protected var mesh:Mesh;
+		protected var color:uint = 0xffe5ad;
+		protected var geometry:Geometry;
+		protected var speed:int = 3;
 		
 		public function Uvcoord()
 		{
@@ -24,6 +31,7 @@ package emptyLib._3D.Tutorials.away3d
 		protected override function initScene():void{
 			super.initScene();
 			this.initCone();
+			this.renderEnd();
 		}
 		
 		protected override function initEngine():void{
@@ -38,9 +46,9 @@ package emptyLib._3D.Tutorials.away3d
 		
 		protected override function onEnterFrame(e:Event):void{
 			super.onEnterFrame(e);
-			this.mesh.rotationX++;
-			this.mesh.rotationY++;
-			this.mesh.rotationZ++;
+			this.mesh.rotationX = this.mesh.rotationX + this.speed;
+			this.mesh.rotationY = this.mesh.rotationY + this.speed;
+			this.mesh.rotationZ = this.mesh.rotationZ + this.speed;
 		}
 		
 		protected override function onStageAdded(e:Event):void{
@@ -62,31 +70,60 @@ package emptyLib._3D.Tutorials.away3d
 				case 50: //2
 					this.initSphere();
 					break;
-				case 51:
+				case 51: //3
 					this.initCapsule();
-					break
+					break;
+				case 52://4
+					this.initCylinder();
+					break;
+				case 53://5
+					this.initPlane();
+					break;
+				case 54://6
+					this.initRegular();
+					break;
+				case 55://6
+					this.initTorus();
+					break;
 				default:
 					this.initSphere();
 					break;
 			}
+			this.renderEnd();
 		}
 		
 		protected function initCone():void{
-			var geometry:ConeGeometry = new ConeGeometry();
-			this.mesh = new Mesh(geometry,new ColorMaterial(this.color));
-			this.scene.addChild(this.mesh);
+			this.geometry = new ConeGeometry();
 		}
 		
 		protected function initSphere():void{
-			var geometry:SphereGeometry = new SphereGeometry();
-			this.mesh = new Mesh(geometry,new ColorMaterial(this.color));
-			this.scene.addChild(this.mesh);
+			this.geometry = new SphereGeometry();
 		}
 		
 		protected function initCapsule():void{
-			var geometry:CapsuleGeometry = new CapsuleGeometry();
-			this.mesh = new Mesh(geometry,new ColorMaterial(this.color));
+			this.geometry = new CapsuleGeometry();
+		}
+		
+		protected function initCylinder():void{
+			this.geometry = new CylinderGeometry();
+		}
+		
+		protected function initPlane():void{
+			this.geometry = new PlaneGeometry();
+		}
+		
+		protected function initRegular():void{
+			this.geometry = new RegularPolygonGeometry();
+		}
+		
+		protected function initTorus():void{
+			this.geometry = new TorusGeometry();
+		}
+		
+		protected function renderEnd():void{
+			this.mesh = new Mesh(this.geometry,new ColorMaterial(this.color));
 			this.scene.addChild(this.mesh);
 		}
+		
 	}
 }
