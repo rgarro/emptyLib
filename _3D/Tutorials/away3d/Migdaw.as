@@ -25,10 +25,10 @@ package emptyLib._3D.Tutorials.away3d {
 		
 		protected override function initScene():void{
 			super.initScene();
-			monsterMesh = AWData.load("mig15.awd",{z:2200});
+			monsterMesh = AWData.load("conio.awd");
 	
 			this.scene.addChild(monsterMesh);
-		addEventListener( Event.ENTER_FRAME, onRender );
+		//addEventListener( Event.ENTER_FRAME, onRender );
 		}
 		
 		 private function onRender( e:Event ):void
