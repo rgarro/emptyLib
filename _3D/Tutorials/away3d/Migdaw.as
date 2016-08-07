@@ -25,7 +25,7 @@ package emptyLib._3D.Tutorials.away3d {
 		
 		protected override function initScene():void{
 			super.initScene();
-			monsterMesh = AWData.load("../../../Assets/War/mig15.awd",{z:2200});
+			monsterMesh = AWData.load("mig15.awd",{z:2200});
 	
 			this.scene.addChild(monsterMesh);
 		addEventListener( Event.ENTER_FRAME, onRender );
