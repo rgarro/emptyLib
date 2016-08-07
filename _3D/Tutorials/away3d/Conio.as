@@ -13,7 +13,7 @@ package emptyLib._3D.Tutorials.away3d {
 	 */
 	public class Conio extends Template {
 		
-		[Embed(source="mig15.awd",mimeType='application/octet-stream')]
+		[Embed(source="Ferrari/Ferrari.awd",mimeType='application/octet-stream')]
 		protected var MonsterModel:Class;
 		
 		public var monsterMesh:ObjectContainer3D; 
