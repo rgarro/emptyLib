@@ -1,0 +1,20 @@
+package emptyLib.Embeders {
+	import flash.display.Bitmap;
+	import flash.display.BitmapData;
+	/**
+	 * @author rolando
+	 */
+	public class PreloadStart {
+		[Embed(source="../Assets/PreloadStart/onemoment.png")]
+		private var onemoment:Class;
+		private var _onemoment:Bitmap = new onemoment() as Bitmap;
+		
+		public function get onemomentClass():Bitmap{
+			return _onemoment;
+		}
+		
+		public function get onemomentData():BitmapData{
+			return _onemoment.bitmapData;
+		}
+	}
+}
