@@ -1,10 +1,12 @@
 package emptyLib.Tools {
+	import flash.events.TimerEvent;
+	import flash.utils.Timer;
 	import emptyLib.Embeders.PreloadStart;
 	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	import flash.text.TextField;
 	import flash.events.Event;
-	import flash.external.ExternalInterface;
+	
 
 	/**
 	 * @author rolando
@@ -15,11 +17,16 @@ package emptyLib.Tools {
 		protected var preloadStatusTxt:TextField;
 		public var isLoaded:Boolean;
 		public var startBtn:Bitmap;
+		protected var not_showing_start_btn:Boolean;
+		protected var centerX:Number;
+		protected var centerY:Number;
 		
 		public function PreloadStart() {
 			this.isLoaded = false;
+			this.not_showing_start_btn = true;
 			var assets:emptyLib.Embeders.PreloadStart = new emptyLib.Embeders.PreloadStart();
 			this.preloadStatusImg = new Bitmap(assets.onemomentData);
+			this.startBtn = new Bitmap(assets.startbtnData);
 			this.addChild(this.preloadStatusImg);
 			
 			preloadStatusTxt = new TextField();
@@ -32,20 +39,47 @@ package emptyLib.Tools {
 		private function init(e:Event):void{
 			this.width = stage.width;
 			this.height = stage.height;
-			var centerX:Number = Math.round(stage.width/2);	
-			var centerY:Number = Math.round(stage.height/2);
-ExternalInterface.call("console.log", centerX);	
-ExternalInterface.call("console.log", centerY);	
+			centerX = Math.round(stage.width/2);	
+			centerY = Math.round(stage.height/2);
 			preloadStatusTxt.textColor = 0x000000;
-			preloadStatusTxt.width = 80;
-			preloadStatusTxt.text = "LOADING: 0%";
-			preloadStatusTxt.x = centerX + 100;
-			preloadStatusTxt.y = 100;
+			preloadStatusTxt.width = 90;
+			preloadStatusTxt.text = "LOADED: 0%";
+			preloadStatusTxt.x = centerX + 80;
+			preloadStatusTxt.y = 80;
 					
 			this.preloadStatusImg.x = centerX;
 			this.preloadStatusImg.y = centerY;
-			//this.addEventListener(Event.ENTER_FRAME,loop);
+			this.addEventListener(Event.ENTER_FRAME,loading);
 			
+		}
+		
+		public function loading(e:Event):void{
+			var total:Number = stage.loaderInfo.bytesTotal;
+			var loaded:Number = stage.loaderInfo.bytesLoaded;
+			var loadPercent:Number = Math.floor((loaded/total)*100);
+			this.preloadStatusTxt.text = "LOADED: " + loadPercent.toString() + "%";
+			if(loadPercent == 100){
+				this.isLoaded = true;
+			}
+			if(this.isLoaded && this.not_showing_start_btn){
+				this.not_showing_start_btn = false;
+				var timeout:Timer = new Timer(2500);
+				timeout.addEventListener(TimerEvent.TIMER, setStart);
+				timeout.start();					
+			}
+		}
+		
+		protected function setStart(e:Event):void{
+			this.removeChild(this.preloadStatusImg);
+			this.removeEventListener(Event.ENTER_FRAME, loading);	
+			this.addChild(this.startBtn);
+			this.startBtn.x = centerX + 80;
+			this.startBtn.y = centerY;
+		}
+		
+		public function end():void{
+			this.removeChild(this.preloadStatusTxt);
+			this.removeChild(this.startBtn);
 		}
 	}
 }

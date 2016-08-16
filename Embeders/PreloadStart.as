@@ -16,5 +16,17 @@ package emptyLib.Embeders {
 		public function get onemomentData():BitmapData{
 			return _onemoment.bitmapData;
 		}
+		
+		[Embed(source="../Assets/PreloadStart/startbtn.png")]
+		private var startbtn:Class;
+		private var _startbtn:Bitmap = new startbtn() as Bitmap;
+		
+		public function get startbtnClass():Bitmap{
+			return _startbtn;
+		}
+		
+		public function get startbtnData():BitmapData{
+			return _startbtn.bitmapData;
+		}
 	}
 }

@@ -1,7 +1,9 @@
 package emptyLib.Games.Avem {
+	import flash.events.MouseEvent;
 	import emptyLib.Tools.PreloadStart;
 	import flash.display.Bitmap;
 	import flash.display.Sprite;
+	import flash.events.Event;
 	import flash.external.ExternalInterface;
 
 	/**
@@ -12,15 +14,35 @@ package emptyLib.Games.Avem {
 		
 		protected var map:Bitmap;
 		public var loadStart:PreloadStart;
+		public var not_loaded:Boolean;
+		protected var game:Map;
+	
 		
 		public function TriviaMap() {
+			this.not_loaded = true;
 			this.loadStart = new PreloadStart();
 			this.addChild(this.loadStart);
-			/*var assets:Assets = new Assets();
-			this.map = new Bitmap(assets.mapData);
-			this.addChild(this.map);
-			this.map.height = 500;this.map.width = 500;
-			ExternalInterface.call("console.log", "Starting Trivia");*/
+			this.addEventListener(Event.ENTER_FRAME,loading);
+			/**/
 		}
+		
+		public function loading(e:Event):void{	
+			if(this.loadStart.isLoaded && this.not_loaded){
+				ExternalInterface.call("console.log", "loading");
+				this.not_loaded = false;
+				this.loadStart.addEventListener(MouseEvent.CLICK, startClick);	
+				this.removeEventListener(Event.ENTER_FRAME, loading);				
+			}
+		}
+		
+		private function startClick(event:MouseEvent):void{
+			this.loadStart.end();
+			this.loadStart.removeEventListener(MouseEvent.CLICK, startClick);
+			this.removeChild(this.loadStart);
+			game = new Map();
+			this.addChild(game);
+		ExternalInterface.call("console.log", "game added");
+		}
+		
 	}
 }
