@@ -16,7 +16,6 @@ package emptyLib.Games.Avem {
 		public var loadStart:PreloadStart;
 		public var not_loaded:Boolean;
 		protected var game:Map;
-	
 		
 		public function TriviaMap() {
 			this.not_loaded = true;
@@ -27,22 +26,29 @@ package emptyLib.Games.Avem {
 		}
 		
 		public function loading(e:Event):void{	
-			if(this.loadStart.isLoaded && this.not_loaded){
+			if(this.loadStart.isStarted && this.loadStart.isLoaded && this.not_loaded){
 				ExternalInterface.call("console.log", "loading");
 				this.not_loaded = false;
-				this.loadStart.addEventListener(MouseEvent.CLICK, startClick);	
-				this.removeEventListener(Event.ENTER_FRAME, loading);				
+				this.removeEventListener(Event.ENTER_FRAME,loading);
+				this.gameStart();
+				//this.loadStart.addEventListener(MouseEvent.CLICK, startClick);	
+				//this.removeEventListener(Event.ENTER_FRAME, loading);				
 			}
 		}
 		
-		private function startClick(event:MouseEvent):void{
+		private function gameStart():void{
 			this.loadStart.end();
-			this.loadStart.removeEventListener(MouseEvent.CLICK, startClick);
 			this.removeChild(this.loadStart);
 			game = new Map();
 			this.addChild(game);
-		ExternalInterface.call("console.log", "game added");
+		//ExternalInterface.call("console.log", "game added");
 		}
+		
+		/*private function startClick(event:MouseEvent):void{
+			
+			//this.loadStart.removeEventListener(MouseEvent.CLICK, startClick);
+			
+		}*/
 		
 	}
 }

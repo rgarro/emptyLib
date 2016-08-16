@@ -16,6 +16,7 @@ package emptyLib.Tools {
 		protected var preloadStatusImg:Bitmap;
 		protected var preloadStatusTxt:TextField;
 		public var isLoaded:Boolean;
+		public var isStarted:Boolean;
 		public var startBtn:Bitmap;
 		protected var not_showing_start_btn:Boolean;
 		protected var centerX:Number;
@@ -23,6 +24,7 @@ package emptyLib.Tools {
 		
 		public function PreloadStart() {
 			this.isLoaded = false;
+			this.isStarted = false;
 			this.not_showing_start_btn = true;
 			var assets:emptyLib.Embeders.PreloadStart = new emptyLib.Embeders.PreloadStart();
 			this.preloadStatusImg = new Bitmap(assets.onemomentData);
@@ -75,6 +77,7 @@ package emptyLib.Tools {
 			this.addChild(this.startBtn);
 			this.startBtn.x = centerX + 80;
 			this.startBtn.y = centerY;
+			this.isStarted = true;
 		}
 		
 		public function end():void{
