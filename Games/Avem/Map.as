@@ -50,7 +50,6 @@ package emptyLib.Games.Avem {
 			this.bgSound = new bgSoundClass() as Sound;
 			var trans:SoundTransform = new SoundTransform(0.014);
 			this.bgSound.play(0,1000,trans);
-		
 		}
 		
 		protected function init(event:Event):void{
@@ -70,7 +69,7 @@ package emptyLib.Games.Avem {
 				this.nombreBox.inicioBtn.removeEventListener(MouseEvent.CLICK, iniciarClick);
 				this.removeChild(this.nombreBox);
 				this.addChild(this.pBox);
-				this.pBox.nombreTxt.text = this.nombreJugador;
+				this.pBox.nombreTxt.text = this.nombreJugador as String;
 				this.pBox.puntosTxt.text = this.points.toString();
 				this.loadStations();
 			}else{
@@ -81,8 +80,8 @@ package emptyLib.Games.Avem {
 		
 		protected function loadStations():void{
 			var request:URLRequest=new URLRequest();
-			request.url="/trivia/estaciones";
-			//request.url="http://localhost:2001/trivia/estaciones";
+			//request.url="/trivia/estaciones";
+			request.url="http://localhost:2001/trivia/estaciones";
 			request.requestHeaders=[new URLRequestHeader("Content-Type", "application/json")];
 			request.method=URLRequestMethod.GET;
 			var loader:URLLoader=new URLLoader();

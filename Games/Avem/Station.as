@@ -25,6 +25,8 @@ package emptyLib.Games.Avem {
 		
 		public var assets:Assets;
 		
+		public var preguntaBox:PreguntaBox;
+		
 		public function Station(mX:Number,mY:Number,dataObj:Object,is_active:Boolean=true):void {
 			this.active = is_active; 
 			this.dObj = dataObj;
@@ -36,6 +38,8 @@ package emptyLib.Games.Avem {
 		}
 		
 		protected function init(event:Event):void{
+			this.useHandCursor = true;
+			this.buttonMode = true;
 			assets = new Assets();
 			if(this.active){
 				this.marker = new Bitmap(assets.mapmarkerData);
@@ -51,7 +55,14 @@ package emptyLib.Games.Avem {
 		private function iniciarClick(event:MouseEvent):void{
 			if(this.active){
 				ExternalInterface.call("console.log", this.dObj);
+				this.removeEventListener(MouseEvent.CLICK, iniciarClick);
 				this.clickSound.play();
+				this.preguntaBox = new PreguntaBox();
+				this.addChild(this.preguntaBox);
+				this.mouseChildren = false;
+				this.preguntaBox.x = 50; this.preguntaBox.y = 50;
+				this.preguntaBox.Titulo.text = this.dObj.station_name as String;
+				this.preguntaBox.Pregunta.text = this.dObj.station_description as String;
 			}else{
 				this.nonclickSound.play();
 			}	
