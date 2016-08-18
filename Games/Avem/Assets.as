@@ -17,5 +17,17 @@ package emptyLib.Games.Avem {
 		public function get mapData():BitmapData{
 			return _map.bitmapData;
 		}
+		
+		[Embed(source="Assets/mapmarker.png")]//black ace
+		private var mapmarker:Class;
+		private var _mapmarker:Bitmap = new mapmarker() as Bitmap;
+		
+		public function get mapmarkerClass():Bitmap{
+			return _mapmarker;
+		}
+		
+		public function get mapmarkerData():BitmapData{
+			return _mapmarker.bitmapData;
+		}
 	}
 }

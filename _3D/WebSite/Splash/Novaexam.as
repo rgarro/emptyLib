@@ -99,9 +99,7 @@ package emptyLib._3D.WebSite.Splash
 			//molecules.push(mxc);
 		
 			}
-
-	 
-}
+		}
 		
 		protected override function initListeners():void
 		{

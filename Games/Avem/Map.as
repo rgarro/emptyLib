@@ -6,10 +6,17 @@ package emptyLib.Games.Avem {
 	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	import flash.external.ExternalInterface;
-	import flash.media.SoundMixer;
+	import flash.net.URLLoader;
+	import flash.net.URLRequestMethod;
+	import flash.net.URLRequestHeader;
+	import flash.net.URLRequest;
+	import flash.events.IOErrorEvent;
+	import flash.events.SecurityErrorEvent;
+	import flash.system.Security;
+	import com.adobe.serialization.json.JSON;
 
 	/**
-	 * @author rolando
+	 * @author Rolando <rolando@emptyart.xyz>
 	 */
 	public class Map extends Sprite {
 		
@@ -26,10 +33,17 @@ package emptyLib.Games.Avem {
         protected var bgSoundClass:Class; 
 		
 		protected var bgSound:Sound;
+		protected var pBox:PointsBox;
+		protected var points:Number;
+		
+		protected var stations:Array = [];
+		protected var station:Station;
 		
 		public function Map():void {
 			this.addEventListener(Event.ADDED_TO_STAGE,init);
-			nombreBox = new AvemNombre();
+			this.nombreBox = new AvemNombre();
+			this.points = 0;
+			this.pBox = new PointsBox();
 			this.errorSound = new errorSoundClass() as Sound;
 			
 			this.bgSound = new bgSoundClass() as Sound;
@@ -54,11 +68,51 @@ package emptyLib.Games.Avem {
 			if( this.nombreJugador.length > 3){
 				this.nombreBox.inicioBtn.removeEventListener(MouseEvent.CLICK, iniciarClick);
 				this.removeChild(this.nombreBox);
-				ExternalInterface.call("console.log", "nombre box acabo");
+				this.addChild(this.pBox);
+				this.pBox.nombreTxt.text = this.nombreJugador;
+				this.pBox.puntosTxt.text = this.points.toString();
+				this.loadStations();
 			}else{
 				this.errorSound.play();
 				this.nombreBox.errMsg.text = " *Nombre";
 			}
 		}
+		
+		protected function loadStations():void{
+			var request:URLRequest=new URLRequest();
+			request.url="http://avemcostarica.com/trivia/estaciones";
+			//request.url="http://localhost:2001/trivia/estaciones";
+			request.requestHeaders=[new URLRequestHeader("Content-Type", "application/json")];
+			request.method=URLRequestMethod.GET;
+			var loader:URLLoader=new URLLoader();
+			loader.addEventListener(Event.COMPLETE, receiveStations);
+			loader.addEventListener(SecurityErrorEvent.SECURITY_ERROR, notAllowed);
+			//loader.addEventListener(IOErrorEvent.IO_ERROR, notFound);
+			loader.load(request);
+		}
+		
+		protected function notAllowed(event:Event):void{
+	//ExternalInterface.call("console.log", "not allowed");
+	//ExternalInterface.call("console.log", event);
+		}
+		
+		protected function receiveStations(event:Event):void{
+			var myResults:String = event.target.data;
+			var objR:Object = com.adobe.serialization.json.JSON.decode(myResults);
+			for each(var og:Object in objR){
+//ExternalInterface.call("console.log", og);
+				var mX:Number = Number(og.station_longitude);
+				var mY:Number = Number(og.station_latitude);
+				station = new Station(mX - 37, mY - 50);
+				this.addChild(station);
+				stations.push(station);			
+			//var mxc:Cone = new Cone({height:75});
+			//this.scene.addChild(mxc);
+			//mxc.x = Number(og.Molecule.x); mxc.y = Number(og.Molecule.y); mxc.z = Number(og.Molecule.z);
+			//molecules.push(mxc);
+		
+			}
+		}
+		
 	}
 }
