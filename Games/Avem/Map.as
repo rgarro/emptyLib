@@ -35,6 +35,7 @@ package emptyLib.Games.Avem {
 		protected var bgSound:Sound;
 		protected var pBox:PointsBox;
 		protected var points:Number;
+		protected var index:Number = 0;
 		
 		protected var stations:Array = [];
 		protected var station:Station;
@@ -80,36 +81,39 @@ package emptyLib.Games.Avem {
 		
 		protected function loadStations():void{
 			var request:URLRequest=new URLRequest();
-			request.url="http://avemcostarica.com/trivia/estaciones";
+			request.url="/trivia/estaciones";
 			//request.url="http://localhost:2001/trivia/estaciones";
 			request.requestHeaders=[new URLRequestHeader("Content-Type", "application/json")];
 			request.method=URLRequestMethod.GET;
 			var loader:URLLoader=new URLLoader();
 			loader.addEventListener(Event.COMPLETE, receiveStations);
 			loader.addEventListener(SecurityErrorEvent.SECURITY_ERROR, notAllowed);
-			//loader.addEventListener(IOErrorEvent.IO_ERROR, notFound);
+			loader.addEventListener(IOErrorEvent.IO_ERROR, notFound);
 			loader.load(request);
 		}
 		
 		protected function notAllowed(event:Event):void{
-	//ExternalInterface.call("console.log", "not allowed");
-	//ExternalInterface.call("console.log", event);
+			ExternalInterface.call("alert", "Security Error, Data fetch not allowed");
+		}
+		
+		protected function notFound(event:Event):void{
+			ExternalInterface.call("alert", "Security Error, Data fetch source not found");
 		}
 		
 		protected function receiveStations(event:Event):void{
 			var myResults:String = event.target.data;
 			var objR:Object = com.adobe.serialization.json.JSON.decode(myResults);
 			for each(var og:Object in objR){
-//ExternalInterface.call("console.log", og);
+				var active:Boolean = false;
+				if(this.index == 0){
+					active = true;
+					this.index = 1;
+				}
 				var mX:Number = Number(og.station_longitude);
 				var mY:Number = Number(og.station_latitude);
-				station = new Station(mX - 37, mY - 50);
+				station = new Station(mX - 37, mY - 50,og,active);
 				this.addChild(station);
 				stations.push(station);			
-			//var mxc:Cone = new Cone({height:75});
-			//this.scene.addChild(mxc);
-			//mxc.x = Number(og.Molecule.x); mxc.y = Number(og.Molecule.y); mxc.z = Number(og.Molecule.z);
-			//molecules.push(mxc);
 		
 			}
 		}

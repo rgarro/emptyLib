@@ -44,11 +44,5 @@ package emptyLib.Games.Avem {
 		//ExternalInterface.call("console.log", "game added");
 		}
 		
-		/*private function startClick(event:MouseEvent):void{
-			
-			//this.loadStart.removeEventListener(MouseEvent.CLICK, startClick);
-			
-		}*/
-		
 	}
 }
