@@ -80,8 +80,8 @@ package emptyLib.Games.Avem {
 		
 		protected function loadStations():void{
 			var request:URLRequest=new URLRequest();
-			request.url="/trivia/estaciones";
-			//request.url="http://localhost:2001/trivia/estaciones";
+			//request.url="/trivia/estaciones";
+			request.url="http://localhost:2001/trivia/estaciones";
 			request.requestHeaders=[new URLRequestHeader("Content-Type", "application/json")];
 			request.method=URLRequestMethod.GET;
 			var loader:URLLoader=new URLLoader();

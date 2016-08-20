@@ -34,7 +34,7 @@ package emptyLib.Games.Avem {
 		
 		public var assets:Assets;
 		
-		public var preguntaBox:PreguntaBox;
+		public var preguntaBox:emptyLib.Games.Avem.PreguntaBox;
 		public var preguntas:Array;
 		
 		public function Station(mX:Number,mY:Number,dataObj:Object,is_active:Boolean=true):void {
@@ -69,13 +69,10 @@ package emptyLib.Games.Avem {
 				this.buttonMode = false;
 				this.removeEventListener(MouseEvent.CLICK, iniciarClick);
 				this.clickSound.play();
-				this.preguntaBox = new PreguntaBox();
+				this.preguntaBox = new emptyLib.Games.Avem.PreguntaBox(this.dObj);
 				this.addChild(this.preguntaBox);
-				this.mouseChildren = false;
+				//this.mouseChildren = false;
 				this.preguntaBox.x = 55; this.preguntaBox.y = 55;
-				this.preguntaBox.Titulo.text = this.dObj.station_name as String;
-				this.preguntaBox.Pregunta.text = this.dObj.station_description as String;
-				this.loadQuestions();
 			}else{
 				this.nonclickSound.play();
 			}	

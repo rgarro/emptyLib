@@ -41,5 +41,17 @@ package emptyLib.Games.Avem {
 		public function get mapmarkeroffData():BitmapData{
 			return _mapmarkeroff.bitmapData;
 		}
+		
+		[Embed(source="Assets/PreguntaBox.png")]//black ace
+		private var PreguntaBox:Class;
+		private var _PreguntaBox:Bitmap = new PreguntaBox() as Bitmap;
+		
+		public function get PreguntaBoxClass():Bitmap{
+			return _PreguntaBox;
+		}
+		
+		public function get PreguntaBoxData():BitmapData{
+			return _PreguntaBox.bitmapData;
+		}
 	}
 }
