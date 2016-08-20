@@ -6,14 +6,7 @@ package emptyLib.Games.Avem {
 	import flash.events.Event;
 	import flash.media.Sound;
 	import flash.external.ExternalInterface;
-	import flash.net.URLLoader;
-	import flash.net.URLRequestMethod;
-	import flash.net.URLRequestHeader;
-	import flash.net.URLRequest;
-	import flash.events.IOErrorEvent;
-	import flash.events.SecurityErrorEvent;
-	import flash.system.Security;
-	import com.adobe.serialization.json.JSON;
+	
 	
 	public class Station extends Sprite {
 		
@@ -76,56 +69,6 @@ package emptyLib.Games.Avem {
 			}else{
 				this.nonclickSound.play();
 			}	
-		}
-		
-		private function loadQuestions():void{
-			var request:URLRequest=new URLRequest();
-			request.url="/trivia/estacion_preguntas?station_id=" + String(this.dObj.station_id);
-			//request.url="http://localhost:2001/trivia/estacion_preguntas?station_id=" + String(this.dObj.station_id);
-			request.requestHeaders=[new URLRequestHeader("Content-Type", "application/json")];
-			request.method=URLRequestMethod.GET;
-			var loader:URLLoader=new URLLoader();
-			loader.addEventListener(Event.COMPLETE, receiveQuestions);
-			loader.addEventListener(SecurityErrorEvent.SECURITY_ERROR, notAllowed);
-			loader.addEventListener(IOErrorEvent.IO_ERROR, notFound);
-			loader.load(request);	
-		}
-		
-		protected function receiveQuestions(event:Event):void{
-			var myResults:String = event.target.data;
-			var objR:Object = com.adobe.serialization.json.JSON.decode(myResults);
-			var py:Number = 60;
-			for each(var og:Object in objR){
-				var respuesta:TextField = new TextField();
-				var o:Object = {};
-				ExternalInterface.call("console.log",og.question_body);
-				respuesta.text = og.question_body;
-				respuesta.textColor = 0x000000;
-				respuesta.width = 300;
-				this.preguntaBox.addChild(respuesta);
-				respuesta.y = py;
-				respuesta.x = 20;
-				respuesta.addEventListener(MouseEvent.CLICK, this.respuestaClick);
-				o["textfield"] = respuesta;
-				o["object"] = og;
-				//respuesta[og] = og;
-				preguntas.push(og);
-				ExternalInterface.call("console.log",og);
-				py = py + 40;
-			}
-		}
-		
-		protected function respuestaClick(event:MouseEvent):void{
-ExternalInterface.call("console.log",event);
-ExternalInterface.call("console.log",parent);		
-		}
-		
-		protected function notAllowed(event:Event):void{
-			ExternalInterface.call("alert", "Security Error, Data fetch not allowed");
-		}
-		
-		protected function notFound(event:Event):void{
-			ExternalInterface.call("alert", "Security Error, Data fetch source not found");
 		}
 		
 		public function activateStation():void{

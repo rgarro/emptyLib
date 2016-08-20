@@ -1,8 +1,20 @@
 package emptyLib.Games.Avem {
+	import flash.events.MouseEvent;
+	import flash.text.TextFormat;
 	import flash.text.TextField;
 	import flash.events.Event;
 	import flash.display.Bitmap;
 	import flash.display.Sprite;
+	import flash.net.URLLoader;
+	import flash.net.URLRequestMethod;
+	import flash.net.URLRequestHeader;
+	import flash.net.URLRequest;
+	import flash.events.IOErrorEvent;
+	import flash.events.SecurityErrorEvent;
+	import flash.system.Security;
+	import com.adobe.serialization.json.JSON;
+	
+	import flash.external.ExternalInterface;
 
 	/**
 	 * @author Rolando <rolando@emptyart.xyz>
@@ -28,16 +40,69 @@ package emptyLib.Games.Avem {
 		}
 		
 		private function titles():void{
+			var tf:TextFormat = new TextFormat();
+			tf.size = 20;
+			tf.color = 0xffffff;
+			var pf:TextFormat = new TextFormat();
+			pf.size = 12;
+			pf.color = 0x0040FF;
 			this.titulo = new TextField();
-			titulo.textColor = 0x000000;
-			titulo.width = 300;
+			this.titulo.defaultTextFormat = tf;
 			this.addChild(titulo);
+			titulo.width = 300;
 			titulo.text = this.og.station_name as String;
 			titulo.x = 10;
-			titulo.y = 10;
-			//this.preguntaBox.Pregunta.text = this.dObj.station_description as String;
-			//this.loadQuestions();
+			titulo.y = 10;			
+			this.pregunta = new TextField();
+			this.pregunta.defaultTextFormat = pf;
+			this.addChild(this.pregunta);
+			this.pregunta.text = this.og.station_description as String;
+			this.pregunta.width = 500;
+			this.pregunta.x = 10;
+			this.pregunta.y = 70;
+			this.loadQuestions();
 		}
 		
+		private function loadQuestions():void{
+			var request:URLRequest=new URLRequest();
+			//request.url="/trivia/estacion_preguntas?station_id=" + String(this.og.station_id);
+			request.url="http://localhost:2001/trivia/estacion_preguntas?station_id=" + String(this.og.station_id);
+			request.requestHeaders=[new URLRequestHeader("Content-Type", "application/json")];
+			request.method=URLRequestMethod.GET;
+			var loader:URLLoader=new URLLoader();
+			loader.addEventListener(Event.COMPLETE, receiveQuestions);
+			loader.addEventListener(SecurityErrorEvent.SECURITY_ERROR, notAllowed);
+			loader.addEventListener(IOErrorEvent.IO_ERROR, notFound);
+			loader.load(request);	
+		}
+		
+		protected function receiveQuestions(event:Event):void{
+			var myResults:String = event.target.data;
+			var objR:Object = com.adobe.serialization.json.JSON.decode(myResults);
+			var py:Number = 140;
+			for each(var og:Object in objR){
+				var respuesta:RespuestaBox = new RespuestaBox(og);
+				this.addChild(respuesta);
+				respuesta.y = py;
+				respuesta.x = 40;
+				//respuesta.addEventListener(MouseEvent.CLICK, this.respuestaClick);
+				///respuestas.push(respuesta);
+				ExternalInterface.call("console.log",og);
+				py = py + 25;
+			}
+		}
+		
+		protected function respuestaClick(event:MouseEvent):void{
+ExternalInterface.call("console.log",event);
+ExternalInterface.call("console.log",parent);		
+		}
+		
+		protected function notAllowed(event:Event):void{
+			ExternalInterface.call("alert", "Security Error, Data fetch not allowed");
+		}
+		
+		protected function notFound(event:Event):void{
+			ExternalInterface.call("alert", "Security Error, Data fetch source not found");
+		}
 	}
 }
