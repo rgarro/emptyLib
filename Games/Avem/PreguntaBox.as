@@ -65,8 +65,8 @@ package emptyLib.Games.Avem {
 		
 		private function loadQuestions():void{
 			var request:URLRequest=new URLRequest();
-			//request.url="/trivia/estacion_preguntas?station_id=" + String(this.og.station_id);
-			request.url="http://localhost:2001/trivia/estacion_preguntas?station_id=" + String(this.og.station_id);
+			request.url="/trivia/estacion_preguntas?station_id=" + String(this.og.station_id);
+			//request.url="http://localhost:2001/trivia/estacion_preguntas?station_id=" + String(this.og.station_id);
 			request.requestHeaders=[new URLRequestHeader("Content-Type", "application/json")];
 			request.method=URLRequestMethod.GET;
 			var loader:URLLoader=new URLLoader();
