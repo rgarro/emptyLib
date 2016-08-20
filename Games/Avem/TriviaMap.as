@@ -27,12 +27,9 @@ package emptyLib.Games.Avem {
 		
 		public function loading(e:Event):void{	
 			if(this.loadStart.isStarted && this.loadStart.isLoaded && this.not_loaded){
-				ExternalInterface.call("console.log", "loading");
 				this.not_loaded = false;
 				this.removeEventListener(Event.ENTER_FRAME,loading);
-				this.gameStart();
-				//this.loadStart.addEventListener(MouseEvent.CLICK, startClick);	
-				//this.removeEventListener(Event.ENTER_FRAME, loading);				
+				this.gameStart();		
 			}
 		}
 		
