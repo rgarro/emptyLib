@@ -30,7 +30,7 @@ package emptyLib.Games.Avem {
 			return _mapmarker.bitmapData;
 		}
 		
-		[Embed(source="Assets/mapmarkeroff.png")]//black ace
+		[Embed(source="Assets/mapmarkeroff.png")]
 		private var mapmarkeroff:Class;
 		private var _mapmarkeroff:Bitmap = new mapmarkeroff() as Bitmap;
 		
@@ -42,7 +42,7 @@ package emptyLib.Games.Avem {
 			return _mapmarkeroff.bitmapData;
 		}
 		
-		[Embed(source="Assets/PreguntaBox.png")]//black ace
+		[Embed(source="Assets/PreguntaBox.png")]
 		private var PreguntaBox:Class;
 		private var _PreguntaBox:Bitmap = new PreguntaBox() as Bitmap;
 		
@@ -52,6 +52,30 @@ package emptyLib.Games.Avem {
 		
 		public function get PreguntaBoxData():BitmapData{
 			return _PreguntaBox.bitmapData;
+		}
+		
+		[Embed(source="Assets/PreguntaBoxBGoff.png")]
+		private var PreguntaBoxBGoff:Class;
+		private var _PreguntaBoxBGoff:Bitmap = new PreguntaBoxBGoff() as Bitmap;
+		
+		public function get PreguntaBoxBGoffClass():Bitmap{
+			return _PreguntaBoxBGoff;
+		}
+		
+		public function get PreguntaBoxBGoffData():BitmapData{
+			return _PreguntaBoxBGoff.bitmapData;
+		}
+		
+		[Embed(source="Assets/PreguntaBoxBGon.png")]
+		private var PreguntaBoxBGon:Class;
+		private var _PreguntaBoxBGon:Bitmap = new PreguntaBoxBGon() as Bitmap;
+		
+		public function get PreguntaBoxBGonClass():Bitmap{
+			return _PreguntaBoxBGon;
+		}
+		
+		public function get PreguntaBoxBGonData():BitmapData{
+			return _PreguntaBoxBGon.bitmapData;
 		}
 	}
 }

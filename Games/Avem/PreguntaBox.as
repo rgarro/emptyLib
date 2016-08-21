@@ -77,6 +77,7 @@ package emptyLib.Games.Avem {
 		}
 		
 		protected function receiveQuestions(event:Event):void{
+			this.respuestas = new Array();
 			var myResults:String = event.target.data;
 			var objR:Object = com.adobe.serialization.json.JSON.decode(myResults);
 			var py:Number = 140;
@@ -84,17 +85,16 @@ package emptyLib.Games.Avem {
 				var respuesta:RespuestaBox = new RespuestaBox(og);
 				this.addChild(respuesta);
 				respuesta.y = py;
-				respuesta.x = 40;
-				//respuesta.addEventListener(MouseEvent.CLICK, this.respuestaClick);
-				///respuestas.push(respuesta);
+				respuesta.x = 10;
+				respuesta.addEventListener(MouseEvent.CLICK, this.respuestaClick);
+				respuestas.push(respuesta);
 				ExternalInterface.call("console.log",og);
-				py = py + 25;
+				py = py + 45;
 			}
 		}
 		
 		protected function respuestaClick(event:MouseEvent):void{
-ExternalInterface.call("console.log",event);
-ExternalInterface.call("console.log",parent);		
+			ExternalInterface.call("console.log",this.og);		
 		}
 		
 		protected function notAllowed(event:Event):void{
