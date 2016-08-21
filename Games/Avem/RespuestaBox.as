@@ -1,4 +1,5 @@
 package emptyLib.Games.Avem {
+	import flash.media.Sound;
 	import flash.events.MouseEvent;
 	import flash.display.Bitmap;
 	import flash.text.TextFormat;
@@ -18,7 +19,16 @@ package emptyLib.Games.Avem {
 		protected var offBg:Bitmap;
 		protected var onBg:Bitmap;
 		
+		public var not_clicked:Boolean  = true;
+		public var not_eval:Boolean = true;
+		
+		[Embed(source="../../Assets/Sounds/Tikk_Cli-Jeyrad-8114_hifi.mp3")] 
+        protected var clickSoundClass:Class; 
+		protected var clickSound:Sound;
+		
 		public function RespuestaBox(obj:Object):void {
+			this.not_clicked = true; 
+			this.clickSound = new clickSoundClass() as Sound;
 			this.useHandCursor = true;
 			this.buttonMode = true;
 			var asset:Assets = new Assets();
@@ -44,8 +54,14 @@ package emptyLib.Games.Avem {
 		}
 		
 		protected function theClick(e:MouseEvent):void{
-			var asset:Assets = new Assets();
-			this.offBg.bitmapData = asset.PreguntaBoxBGonData;
+			if(this.not_clicked == true){
+				this.not_clicked = false;
+				var asset:Assets = new Assets();
+				this.offBg.bitmapData = asset.PreguntaBoxBGonData;
+				this.clickSound.play();
+				ExternalInterface.call("console.log",this.not_clicked);
+				//e.currentTarget.removeEventListener(e.type, theClick);
+			}
 		}
 	}
 }
