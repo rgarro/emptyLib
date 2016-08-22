@@ -44,7 +44,7 @@ package emptyLib.Games.Avem {
 			tf.size = 20;
 			tf.color = 0xffffff;
 			var pf:TextFormat = new TextFormat();
-			pf.size = 12;
+			pf.size = 14;
 			pf.color = 0x0040FF;
 			this.titulo = new TextField();
 			this.titulo.defaultTextFormat = tf;
@@ -56,7 +56,7 @@ package emptyLib.Games.Avem {
 			this.pregunta = new TextField();
 			this.pregunta.defaultTextFormat = pf;
 			this.addChild(this.pregunta);
-			this.pregunta.text = this.og.station_description as String;
+			this.pregunta.text = this.og.question as String;
 			this.pregunta.width = 500;
 			this.pregunta.x = 10;
 			this.pregunta.y = 70;
@@ -65,8 +65,9 @@ package emptyLib.Games.Avem {
 		
 		private function loadQuestions():void{
 			var request:URLRequest=new URLRequest();
-			//request.url="/trivia/estacion_preguntas?station_id=" + String(this.og.station_id);
-			request.url="http://localhost:2001/trivia/estacion_preguntas?station_id=" + String(this.og.station_id);
+			request.url="/trivia/estacion_preguntas?question_id=" + String(this.og.question_id);
+			//request.url="http://localhost:2001/trivia/estacion_preguntas?question_id=" + String(this.og.question_id);
+//ExternalInterface.call("console.log",request.url);			
 			request.requestHeaders=[new URLRequestHeader("Content-Type", "application/json")];
 			request.method=URLRequestMethod.GET;
 			var loader:URLLoader=new URLLoader();
@@ -81,15 +82,23 @@ package emptyLib.Games.Avem {
 			var myResults:String = event.target.data;
 			var objR:Object = com.adobe.serialization.json.JSON.decode(myResults);
 			var py:Number = 140;
+			var index:Number = 0;
 			for each(var og:Object in objR){
-				var respuesta:RespuestaBox = new RespuestaBox(og);
+				var respuesta:RespuestaBox = new RespuestaBox(og,this,index);
 				this.addChild(respuesta);
 				respuesta.y = py;
 				respuesta.x = 10;
-				respuesta.addEventListener(MouseEvent.CLICK, this.respuestaClick);
+				//respuesta.addEventListener(MouseEvent.CLICK, this.respuestaClick);
 				respuestas.push(respuesta);
 				//ExternalInterface.call("console.log",og);
 				py = py + 45;
+				index = index + 1;
+			}
+		}
+		
+		public function deffRespuestas():void{
+			for each(var r:emptyLib.Games.Avem.RespuestaBox in this.respuestas){
+				r.removeClick();
 			}
 		}
 		

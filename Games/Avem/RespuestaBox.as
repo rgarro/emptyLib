@@ -25,8 +25,12 @@ package emptyLib.Games.Avem {
 		[Embed(source="../../Assets/Sounds/Tikk_Cli-Jeyrad-8114_hifi.mp3")] 
         protected var clickSoundClass:Class; 
 		protected var clickSound:Sound;
+		protected var pObj:emptyLib.Games.Avem.PreguntaBox;
+		protected var index:Number;
 		
-		public function RespuestaBox(obj:Object):void {
+		public function RespuestaBox(obj:Object,pO:emptyLib.Games.Avem.PreguntaBox,i:Number):void {
+			this.index = i;
+			this.pObj = pO;
 			this.not_clicked = true; 
 			this.clickSound = new clickSoundClass() as Sound;
 			this.useHandCursor = true;
@@ -46,7 +50,7 @@ package emptyLib.Games.Avem {
 			this.texto = new TextField();
 			this.texto.defaultTextFormat = tf;
 			this.addChild(this.texto);
-			this.texto.text = og.question_body;
+			this.texto.text = og.answer_body;
 			this.texto.width = 300;
 			this.texto.x = 30;
 			this.texto.y = 10;
@@ -59,9 +63,13 @@ package emptyLib.Games.Avem {
 				var asset:Assets = new Assets();
 				this.offBg.bitmapData = asset.PreguntaBoxBGonData;
 				this.clickSound.play();
-				ExternalInterface.call("console.log",this.not_clicked);
-				//e.currentTarget.removeEventListener(e.type, theClick);
+				ExternalInterface.call("console.log",this.og);
+				this.pObj.deffRespuestas();
 			}
+		}
+		
+		public function removeClick():void{
+			this.removeEventListener(MouseEvent.CLICK, theClick);
 		}
 	}
 }
