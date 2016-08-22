@@ -25,12 +25,12 @@ package emptyLib.Games.Avem {
 		[Embed(source="../../Assets/Sounds/Tikk_Cli-Jeyrad-8114_hifi.mp3")] 
         protected var clickSoundClass:Class; 
 		protected var clickSound:Sound;
-		protected var pObj:emptyLib.Games.Avem.PreguntaBox;
+		protected var preguntaBox:emptyLib.Games.Avem.PreguntaBox;
 		protected var index:Number;
 		
 		public function RespuestaBox(obj:Object,pO:emptyLib.Games.Avem.PreguntaBox,i:Number):void {
 			this.index = i;
-			this.pObj = pO;
+			this.preguntaBox = pO;
 			this.not_clicked = true; 
 			this.clickSound = new clickSoundClass() as Sound;
 			this.useHandCursor = true;
@@ -64,7 +64,7 @@ package emptyLib.Games.Avem {
 				this.offBg.bitmapData = asset.PreguntaBoxBGonData;
 				this.clickSound.play();
 				ExternalInterface.call("console.log",this.og);
-				this.pObj.deffRespuestas();
+				this.preguntaBox.deffRespuestas(this.index);
 			}
 		}
 		

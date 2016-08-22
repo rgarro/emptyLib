@@ -33,8 +33,8 @@ package emptyLib.Games.Avem {
         protected var bgSoundClass:Class; 
 		
 		protected var bgSound:Sound;
-		protected var pBox:PointsBox;
-		protected var points:Number;
+		protected var pBox:ScoreBox;
+		public var points:Number;
 		protected var index:Number = 0;
 		
 		protected var stations:Array = [];
@@ -44,7 +44,8 @@ package emptyLib.Games.Avem {
 			this.addEventListener(Event.ADDED_TO_STAGE,init);
 			this.nombreBox = new AvemNombre();
 			this.points = 0;
-			this.pBox = new PointsBox();
+			//this.pBox = new PointsBox();
+			this.pBox = new ScoreBox();
 			this.errorSound = new errorSoundClass() as Sound;
 			
 			this.bgSound = new bgSoundClass() as Sound;
@@ -80,8 +81,8 @@ package emptyLib.Games.Avem {
 		
 		protected function loadStations():void{
 			var request:URLRequest=new URLRequest();
-			request.url="/trivia/estaciones";
-			//request.url="http://localhost:2001/trivia/estaciones";
+			//request.url="/trivia/estaciones";
+			request.url="http://localhost:2001/trivia/estaciones";
 			request.requestHeaders=[new URLRequestHeader("Content-Type", "application/json")];
 			request.method=URLRequestMethod.GET;
 			var loader:URLLoader=new URLLoader();
@@ -111,9 +112,14 @@ package emptyLib.Games.Avem {
 				var mX:Number = Number(og.station_longitude);
 				var mY:Number = Number(og.station_latitude);
 				station = new Station(mX - 37, mY - 50,og,active);
+				station.map = this;
 				this.addChild(station);
 				stations.push(station);			
 			}
+		}
+		
+		public function updatePoints():void{
+			this.pBox.puntosTxt.text = this.points.toString();
 		}
 		
 	}

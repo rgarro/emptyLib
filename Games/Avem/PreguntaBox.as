@@ -26,6 +26,7 @@ package emptyLib.Games.Avem {
 		protected var pregunta:TextField;
 		protected var respuestas:Array;
 		protected var og:Object;
+		public var station:Station;
 		
 		public function PreguntaBox(dbObj:Object):void {
 			this.og = dbObj;
@@ -65,8 +66,8 @@ package emptyLib.Games.Avem {
 		
 		private function loadQuestions():void{
 			var request:URLRequest=new URLRequest();
-			request.url="/trivia/estacion_preguntas?question_id=" + String(this.og.question_id);
-			//request.url="http://localhost:2001/trivia/estacion_preguntas?question_id=" + String(this.og.question_id);
+			//request.url="/trivia/estacion_preguntas?question_id=" + String(this.og.question_id);
+			request.url="http://localhost:2001/trivia/estacion_preguntas?question_id=" + String(this.og.question_id);
 //ExternalInterface.call("console.log",request.url);			
 			request.requestHeaders=[new URLRequestHeader("Content-Type", "application/json")];
 			request.method=URLRequestMethod.GET;
@@ -96,10 +97,14 @@ package emptyLib.Games.Avem {
 			}
 		}
 		
-		public function deffRespuestas():void{
+		public function deffRespuestas(clicked:Number):void{
+			var i:Number = 0;
 			for each(var r:emptyLib.Games.Avem.RespuestaBox in this.respuestas){
 				r.removeClick();
 			}
+			ExternalInterface.call("console.log",this.respuestas[i].og.puntos);
+			this.station.map.points =  this.station.map.points + this.respuestas[i].og.puntos;
+			this.station.map.updatePoints();
 		}
 		
 		protected function respuestaClick(event:MouseEvent):void{

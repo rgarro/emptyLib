@@ -29,6 +29,7 @@ package emptyLib.Games.Avem {
 		
 		public var preguntaBox:emptyLib.Games.Avem.PreguntaBox;
 		public var preguntas:Array;
+		public var map:Map;
 		
 		public function Station(mX:Number,mY:Number,dataObj:Object,is_active:Boolean=true):void {
 			this.preguntas = new Array();
@@ -63,6 +64,7 @@ package emptyLib.Games.Avem {
 				this.removeEventListener(MouseEvent.CLICK, iniciarClick);
 				this.clickSound.play();
 				this.preguntaBox = new emptyLib.Games.Avem.PreguntaBox(this.dObj);
+				this.preguntaBox.station = this;
 				this.addChild(this.preguntaBox);
 				//this.mouseChildren = false;
 				this.preguntaBox.x = 55; this.preguntaBox.y = 55;
