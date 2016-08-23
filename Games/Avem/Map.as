@@ -81,8 +81,8 @@ package emptyLib.Games.Avem {
 		
 		protected function loadStations():void{
 			var request:URLRequest=new URLRequest();
-			//request.url="/trivia/estaciones";
-			request.url="http://localhost:2001/trivia/estaciones";
+			request.url="/trivia/estaciones";
+			//request.url="http://localhost:2001/trivia/estaciones";
 			request.requestHeaders=[new URLRequestHeader("Content-Type", "application/json")];
 			request.method=URLRequestMethod.GET;
 			var loader:URLLoader=new URLLoader();
@@ -103,20 +103,33 @@ package emptyLib.Games.Avem {
 		protected function receiveStations(event:Event):void{
 			var myResults:String = event.target.data;
 			var objR:Object = com.adobe.serialization.json.JSON.decode(myResults);
-			for each(var og:Object in objR){
-				var active:Boolean = false;
-				if(this.index == 0){
-					active = true;
-					this.index = 1;
-				}
-				var mX:Number = Number(og.station_longitude);
-				var mY:Number = Number(og.station_latitude);
-				station = new Station(mX - 37, mY - 50,og,active);
-				station.map = this;
-				this.addChild(station);
-				stations.push(station);			
+			var i:Number = 0;
+			for each(var og:Object in objR){	
+				if(Number(og.station_longitude) < 500 && Number(og.station_latitude) < 500){
+					var active:Boolean = false;
+					if(this.index == 0){
+						active = true;
+						this.index = 1;
+					}
+					var mX:Number = Number(og.station_longitude);
+					var mY:Number = Number(og.station_latitude);
+					station = new Station(mX - 37, mY - 50,og,active);
+					station.map = this;
+					station.index = i;
+					this.addChild(station);
+					stations[i] = station;
+					i = i + 1;
+				}					
 			}
 		}
+
+		public function nextStation(next:Number):void{
+			if(next < this.stations.length){
+				stations[next].activateStation();
+			}else{
+				ExternalInterface.call("console.log", next);
+			}
+		}		
 		
 		public function updatePoints():void{
 			this.pBox.puntosTxt.text = this.points.toString();

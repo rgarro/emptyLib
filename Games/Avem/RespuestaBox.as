@@ -51,7 +51,7 @@ package emptyLib.Games.Avem {
 			this.texto.defaultTextFormat = tf;
 			this.addChild(this.texto);
 			this.texto.text = og.answer_body;
-			this.texto.width = 300;
+			this.texto.width = 500;
 			this.texto.x = 30;
 			this.texto.y = 10;
 			this.addEventListener(MouseEvent.CLICK, theClick);
@@ -63,7 +63,7 @@ package emptyLib.Games.Avem {
 				var asset:Assets = new Assets();
 				this.offBg.bitmapData = asset.PreguntaBoxBGonData;
 				this.clickSound.play();
-				ExternalInterface.call("console.log",this.og);
+				//ExternalInterface.call("console.log",this.og);
 				this.preguntaBox.deffRespuestas(this.index);
 			}
 		}

@@ -4,7 +4,6 @@ package emptyLib.Games.Avem {
 	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	import flash.events.Event;
-	import flash.external.ExternalInterface;
 
 	/**
 	 * @author Rolando <rolando@emptyart.xyz>
@@ -22,7 +21,6 @@ package emptyLib.Games.Avem {
 			this.loadStart = new PreloadStart();
 			this.addChild(this.loadStart);
 			this.addEventListener(Event.ENTER_FRAME,loading);
-			/**/
 		}
 		
 		public function loading(e:Event):void{	
@@ -38,7 +36,6 @@ package emptyLib.Games.Avem {
 			this.removeChild(this.loadStart);
 			game = new Map();
 			this.addChild(game);
-		//ExternalInterface.call("console.log", "game added");
 		}
 		
 	}

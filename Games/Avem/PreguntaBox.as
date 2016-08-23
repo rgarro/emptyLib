@@ -1,4 +1,6 @@
 package emptyLib.Games.Avem {
+	import flash.events.TimerEvent;
+	import flash.utils.Timer;
 	import flash.events.MouseEvent;
 	import flash.text.TextFormat;
 	import flash.text.TextField;
@@ -50,7 +52,7 @@ package emptyLib.Games.Avem {
 			this.titulo = new TextField();
 			this.titulo.defaultTextFormat = tf;
 			this.addChild(titulo);
-			titulo.width = 300;
+			titulo.width = 500;
 			titulo.text = this.og.station_name as String;
 			titulo.x = 10;
 			titulo.y = 10;			
@@ -66,9 +68,8 @@ package emptyLib.Games.Avem {
 		
 		private function loadQuestions():void{
 			var request:URLRequest=new URLRequest();
-			//request.url="/trivia/estacion_preguntas?question_id=" + String(this.og.question_id);
-			request.url="http://localhost:2001/trivia/estacion_preguntas?question_id=" + String(this.og.question_id);
-//ExternalInterface.call("console.log",request.url);			
+			request.url="/trivia/estacion_preguntas?question_id=" + String(this.og.question_id);
+			//request.url="http://localhost:2001/trivia/estacion_preguntas?question_id=" + String(this.og.question_id);			
 			request.requestHeaders=[new URLRequestHeader("Content-Type", "application/json")];
 			request.method=URLRequestMethod.GET;
 			var loader:URLLoader=new URLLoader();
@@ -89,9 +90,7 @@ package emptyLib.Games.Avem {
 				this.addChild(respuesta);
 				respuesta.y = py;
 				respuesta.x = 10;
-				//respuesta.addEventListener(MouseEvent.CLICK, this.respuestaClick);
 				respuestas.push(respuesta);
-				//ExternalInterface.call("console.log",og);
 				py = py + 45;
 				index = index + 1;
 			}
@@ -102,13 +101,19 @@ package emptyLib.Games.Avem {
 			for each(var r:emptyLib.Games.Avem.RespuestaBox in this.respuestas){
 				r.removeClick();
 			}
-			ExternalInterface.call("console.log",this.respuestas[i].og.puntos);
 			this.station.map.points =  this.station.map.points + this.respuestas[i].og.puntos;
 			this.station.map.updatePoints();
+			var timeout:Timer = new Timer(2500);
+			timeout.addEventListener(TimerEvent.TIMER, setEnd);
+			timeout.start();	
+		}
+		
+		public function setEnd(e:Event):void{
+			this.station.terminarPregunta();
 		}
 		
 		protected function respuestaClick(event:MouseEvent):void{
-			ExternalInterface.call("console.log",this.og);		
+			//ExternalInterface.call("console.log",this.og);		
 		}
 		
 		protected function notAllowed(event:Event):void{

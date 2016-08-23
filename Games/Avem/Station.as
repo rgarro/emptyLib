@@ -31,6 +31,8 @@ package emptyLib.Games.Avem {
 		public var preguntas:Array;
 		public var map:Map;
 		
+		public var index:Number;
+		
 		public function Station(mX:Number,mY:Number,dataObj:Object,is_active:Boolean=true):void {
 			this.preguntas = new Array();
 			this.active = is_active; 
@@ -57,7 +59,7 @@ package emptyLib.Games.Avem {
 			this.addEventListener(MouseEvent.CLICK, iniciarClick);
 		}
 		
-		private function iniciarClick(event:MouseEvent):void{
+		private function iniciarClick(event:MouseEvent):void{	
 			if(this.active){
 				this.useHandCursor = false;
 				this.buttonMode = false;
@@ -91,6 +93,18 @@ package emptyLib.Games.Avem {
 			this.addChild(this.marker);
 			this.marker.x = this.markerX;
 			this.marker.y = this.markerY;
+		}
+		
+		public function terminarPregunta():void{
+			this.removeChild(this.preguntaBox);
+			this.removeChild(this.marker);
+			this.marker = null;
+			this.marker = new Bitmap(assets.mapmarkeroffData);
+			this.active = false;
+			this.addChild(this.marker);
+			this.marker.x = this.markerX;
+			this.marker.y = this.markerY;
+			this.map.nextStation(this.index + 1);
 		}
 	}
 }
