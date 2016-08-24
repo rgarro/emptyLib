@@ -38,7 +38,9 @@ package emptyLib.Games.Avem {
 		}
 		
 		private function init(e:Event):void{
+			this.station.map.hideMarkers();
 			this.addChild(this.backgroud);
+			
 			this.titles();
 		}
 		
@@ -47,20 +49,24 @@ package emptyLib.Games.Avem {
 			tf.size = 20;
 			tf.color = 0xffffff;
 			var pf:TextFormat = new TextFormat();
-			pf.size = 14;
-			pf.color = 0x0040FF;
+			pf.size = 20;
+			pf.color = 0xdb6d00;
 			this.titulo = new TextField();
 			this.titulo.defaultTextFormat = tf;
 			this.addChild(titulo);
-			titulo.width = 500;
-			titulo.text = this.og.station_name as String;
+			titulo.width = 450;
+			titulo.text = String(this.station.index + 1) + " - " + this.og.station_name as String;
+			this.titulo.multiline = true;
+			this.titulo.wordWrap = true;
 			titulo.x = 10;
 			titulo.y = 10;			
 			this.pregunta = new TextField();
 			this.pregunta.defaultTextFormat = pf;
 			this.addChild(this.pregunta);
 			this.pregunta.text = this.og.question as String;
-			this.pregunta.width = 500;
+			this.pregunta.multiline = true;
+			this.pregunta.wordWrap = true;
+			this.pregunta.width = 350;
 			this.pregunta.x = 10;
 			this.pregunta.y = 70;
 			this.loadQuestions();

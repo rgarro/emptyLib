@@ -122,7 +122,19 @@ package emptyLib.Games.Avem {
 				}					
 			}
 		}
-
+		
+		public function showMarkers():void{
+			for each(var station:Station in stations){
+				station.showMarker();
+			}
+		}
+		
+		public function hideMarkers():void{
+			for each(var station:Station in stations){
+				station.hideMarker();
+			}
+		}
+		
 		public function nextStation(next:Number):void{
 			if(next < this.stations.length){
 				stations[next].activateStation();

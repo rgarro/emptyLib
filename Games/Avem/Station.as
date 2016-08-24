@@ -106,5 +106,13 @@ package emptyLib.Games.Avem {
 			this.marker.y = this.markerY;
 			this.map.nextStation(this.index + 1);
 		}
+		
+		public function hideMarker():void{
+			this.marker.alpha = .3;
+		}
+		
+		public function showMarker():void{
+			this.marker.alpha = 1;
+		}
 	}
 }
