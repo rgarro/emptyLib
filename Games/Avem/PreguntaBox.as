@@ -47,10 +47,10 @@ package emptyLib.Games.Avem {
 		private function titles():void{
 			var tf:TextFormat = new TextFormat();
 			tf.size = 20;
-			tf.color = 0xffffff;
+			tf.color = 0x000000;
 			var pf:TextFormat = new TextFormat();
 			pf.size = 20;
-			pf.color = 0xdb6d00;
+			pf.color = 0xff2626;
 			this.titulo = new TextField();
 			this.titulo.defaultTextFormat = tf;
 			this.addChild(titulo);
@@ -74,8 +74,8 @@ package emptyLib.Games.Avem {
 		
 		private function loadQuestions():void{
 			var request:URLRequest=new URLRequest();
-			request.url="/trivia/estacion_preguntas?question_id=" + String(this.og.question_id);
-			//request.url="http://localhost:2001/trivia/estacion_preguntas?question_id=" + String(this.og.question_id);			
+			//request.url="/trivia/estacion_preguntas?question_id=" + String(this.og.question_id);
+			request.url="http://localhost:2001/trivia/estacion_preguntas?question_id=" + String(this.og.question_id);			
 			request.requestHeaders=[new URLRequestHeader("Content-Type", "application/json")];
 			request.method=URLRequestMethod.GET;
 			var loader:URLLoader=new URLLoader();
