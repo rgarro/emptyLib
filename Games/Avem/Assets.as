@@ -113,5 +113,17 @@ package emptyLib.Games.Avem {
 		public function get ResultadoBoxData():BitmapData{
 			return _ResultadoBox.bitmapData;
 		}
+		
+		[Embed(source="Assets/endBtn.png")]
+		private var endBtn:Class;
+		private var _endBtn:Bitmap = new endBtn() as Bitmap;
+		
+		public function get endBtnClass():Bitmap{
+			return _endBtn;
+		}
+		
+		public function get endBtnData():BitmapData{
+			return _endBtn.bitmapData;
+		}
 	}
 }

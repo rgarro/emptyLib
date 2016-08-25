@@ -35,6 +35,15 @@ package emptyLib.Games.Avem {
 			this.loadStart.end();
 			this.removeChild(this.loadStart);
 			game = new Map();
+			game.trivia = this;
+			this.addChild(game);
+		}
+		
+		public function restart():void{
+			this.removeChild(this.game);
+			this.game = null;
+			game = new Map();
+			game.trivia = this;
 			this.addChild(game);
 		}
 		

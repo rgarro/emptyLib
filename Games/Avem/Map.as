@@ -50,6 +50,7 @@ package emptyLib.Games.Avem {
 		protected var index:Number = 0;
 		protected var zopilote:Bitmap;
 		public var resultBox:ResultadoBox;
+		public var trivia:TriviaMap;
 		
 		protected var stations:Array = [];
 		protected var station:Station;
@@ -169,7 +170,8 @@ package emptyLib.Games.Avem {
 			if(next < this.stations.length){
 				stations[next].activateStation();
 			}else{
-				this.resultBox = new ResultadoBox();
+				var subt:Number = (points * 100)/(stations.length * 10);
+				this.resultBox = new ResultadoBox("Obtuviste:"+ subt.toString() +"%",this);
 				this.addChild(this.resultBox);
 			}
 		}		
