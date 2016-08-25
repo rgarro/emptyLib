@@ -133,19 +133,21 @@ package emptyLib.Games.Avem {
 			var i:Number = 0;
 			for each(var og:Object in objR){	
 				if(Number(og.station_longitude) < 500 && Number(og.station_latitude) < 500){
-					var active:Boolean = false;
-					if(this.index == 0){
-						active = true;
-						this.index = 1;
+					if(Number(og.question_id) > 0){
+						var active:Boolean = false;
+						if(this.index == 0){
+							active = true;
+							this.index = 1;
+						}
+						var mX:Number = Number(og.station_longitude);
+						var mY:Number = Number(og.station_latitude);
+						station = new Station(mX - 37, mY - 50,og,active);
+						station.map = this;
+						station.index = i;
+						this.addChild(station);
+						stations[i] = station;
+						i = i + 1;
 					}
-					var mX:Number = Number(og.station_longitude);
-					var mY:Number = Number(og.station_latitude);
-					station = new Station(mX - 37, mY - 50,og,active);
-					station.map = this;
-					station.index = i;
-					this.addChild(station);
-					stations[i] = station;
-					i = i + 1;
 				}					
 			}
 		}

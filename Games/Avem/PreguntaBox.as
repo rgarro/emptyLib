@@ -63,7 +63,8 @@ package emptyLib.Games.Avem {
 			this.titulo.defaultTextFormat = tf;
 			this.addChild(titulo);
 			titulo.width = 450;
-			titulo.text = String(this.station.index + 1) + " - " + this.og.station_name as String;
+			//titulo.text = String(this.station.index + 1) + " - " + this.og.station_name as String;
+			titulo.text = "Estación : " + String(this.station.index + 1);
 			this.titulo.multiline = true;
 			this.titulo.wordWrap = true;
 			titulo.x = 10;
