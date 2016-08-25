@@ -1,4 +1,8 @@
 package emptyLib.Games.Avem {
+	import flash.events.TimerEvent;
+	import flash.utils.Timer;
+	import com.adobe.protocols.dict.util.CompleteResponseEvent;
+	import com.greensock.plugins.OnCompleteRenderPlugin;
 	import flash.media.SoundTransform;
 	import flash.media.Sound;
 	import flash.events.MouseEvent;
@@ -14,6 +18,8 @@ package emptyLib.Games.Avem {
 	import flash.events.SecurityErrorEvent;
 	import flash.system.Security;
 	import com.adobe.serialization.json.JSON;
+	import com.greensock.*;
+	import com.greensock.easing.*;
 
 	/**
 	 * @author Rolando <rolando@emptyart.xyz>
@@ -33,9 +39,16 @@ package emptyLib.Games.Avem {
         protected var bgSoundClass:Class; 
 		
 		protected var bgSound:Sound;
+		
+		[Embed(source="../../Assets/Sounds/Bird_sc-TRD-8405_hifi.mp3")] 
+        protected var zopiSoundClass:Class; 
+		
+		protected var zopiSound:Sound;
+		
 		protected var pBox:ScoreBox;
 		public var points:Number;
 		protected var index:Number = 0;
+		protected var zopilote:Bitmap;
 		
 		protected var stations:Array = [];
 		protected var station:Station;
@@ -44,9 +57,12 @@ package emptyLib.Games.Avem {
 			this.addEventListener(Event.ADDED_TO_STAGE,init);
 			this.nombreBox = new AvemNombre();
 			this.points = 0;
-			//this.pBox = new PointsBox();
+			
 			this.pBox = new ScoreBox();
 			this.errorSound = new errorSoundClass() as Sound;
+			
+			this.zopiSound = new zopiSoundClass() as Sound;
+			
 			
 			this.bgSound = new bgSoundClass() as Sound;
 			var trans:SoundTransform = new SoundTransform(0.014);
@@ -55,6 +71,7 @@ package emptyLib.Games.Avem {
 		
 		protected function init(event:Event):void{
 			var assets:Assets = new Assets();
+			this.zopilote = new Bitmap(assets.zopiloteData);
 			this.map = new Bitmap(assets.mapData);
 			this.addChild(this.map);
 			this.map.height = 500;this.map.width = 500;
@@ -72,12 +89,21 @@ package emptyLib.Games.Avem {
 				this.addChild(this.pBox);
 				this.pBox.nombreTxt.text = this.nombreJugador as String;
 				this.pBox.puntosTxt.text = this.points.toString();
+				
+				this.addChild(this.zopilote);
+				this.zopilote.x = 400;
+				this.zopilote.y = -30;
+				this.zopiSound.play();
+				TweenLite.to(this.zopilote, 3.5, {x:-130, y:200, scaleX:0.7, scaleY:0.7});
 				this.loadStations();
+							
 			}else{
 				this.errorSound.play();
 				this.nombreBox.errMsg.text = " *Nombre";
 			}
 		}
+		
+		
 		
 		protected function loadStations():void{
 			var request:URLRequest=new URLRequest();
