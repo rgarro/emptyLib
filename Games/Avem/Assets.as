@@ -101,5 +101,17 @@ package emptyLib.Games.Avem {
 		public function get zopiloteData():BitmapData{
 			return _zopilote.bitmapData;
 		}
+		
+		[Embed(source="Assets/ResultadoBox.png")]
+		private var ResultadoBox:Class;
+		private var _ResultadoBox:Bitmap = new ResultadoBox() as Bitmap;
+		
+		public function get ResultadoBoxClass():Bitmap{
+			return _ResultadoBox;
+		}
+		
+		public function get ResultadoBoxData():BitmapData{
+			return _ResultadoBox.bitmapData;
+		}
 	}
 }

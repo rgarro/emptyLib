@@ -49,6 +49,7 @@ package emptyLib.Games.Avem {
 		public var points:Number;
 		protected var index:Number = 0;
 		protected var zopilote:Bitmap;
+		public var resultBox:ResultadoBox;
 		
 		protected var stations:Array = [];
 		protected var station:Station;
@@ -168,7 +169,8 @@ package emptyLib.Games.Avem {
 			if(next < this.stations.length){
 				stations[next].activateStation();
 			}else{
-				ExternalInterface.call("console.log", next);
+				this.resultBox = new ResultadoBox();
+				this.addChild(this.resultBox);
 			}
 		}		
 		
