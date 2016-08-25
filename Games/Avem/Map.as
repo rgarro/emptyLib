@@ -1,8 +1,8 @@
 package emptyLib.Games.Avem {
-	import flash.events.TimerEvent;
-	import flash.utils.Timer;
-	import com.adobe.protocols.dict.util.CompleteResponseEvent;
 	import com.greensock.plugins.OnCompleteRenderPlugin;
+	import com.greensock.TweenLite;
+	import com.greensock.events.TweenEvent;
+	import mx.effects.Tween;
 	import flash.media.SoundTransform;
 	import flash.media.Sound;
 	import flash.events.MouseEvent;
@@ -16,10 +16,10 @@ package emptyLib.Games.Avem {
 	import flash.net.URLRequest;
 	import flash.events.IOErrorEvent;
 	import flash.events.SecurityErrorEvent;
-	import flash.system.Security;
+	
 	import com.adobe.serialization.json.JSON;
-	import com.greensock.*;
-	import com.greensock.easing.*;
+	
+	
 
 	/**
 	 * @author Rolando <rolando@emptyart.xyz>
@@ -95,6 +95,7 @@ package emptyLib.Games.Avem {
 				this.zopilote.y = -30;
 				this.zopiSound.play();
 				TweenLite.to(this.zopilote, 3.5, {x:-130, y:200, scaleX:0.7, scaleY:0.7});
+				
 				this.loadStations();
 							
 			}else{
@@ -107,8 +108,8 @@ package emptyLib.Games.Avem {
 		
 		protected function loadStations():void{
 			var request:URLRequest=new URLRequest();
-			//request.url="/trivia/estaciones";
-			request.url="http://localhost:2001/trivia/estaciones";
+			request.url="/trivia/estaciones";
+			//request.url="http://localhost:2001/trivia/estaciones";
 			request.requestHeaders=[new URLRequestHeader("Content-Type", "application/json")];
 			request.method=URLRequestMethod.GET;
 			var loader:URLLoader=new URLLoader();

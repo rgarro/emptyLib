@@ -1,4 +1,5 @@
 package emptyLib.Games.Avem {
+	import flash.media.Sound;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	import flash.events.MouseEvent;
@@ -29,10 +30,17 @@ package emptyLib.Games.Avem {
 		protected var respuestas:Array;
 		protected var og:Object;
 		public var station:Station;
+		[Embed(source="../../Assets/Sounds/amio_sma-Aftermat-7396_hifi.mp3")] 
+        protected var yiguiSoundClass:Class; 
+		protected var yiguiSound:Sound;
+		protected var assets:Assets;
+		protected var yiguirro:Bitmap;
 		
 		public function PreguntaBox(dbObj:Object):void {
 			this.og = dbObj;
-			var assets:Assets = new Assets();
+			this.yiguiSound = new yiguiSoundClass() as Sound;
+			assets = new Assets();
+			this.yiguirro = new Bitmap(assets.yiguirroData);
 			this.backgroud = new Bitmap(assets.PreguntaBoxData);
 			this.addEventListener(Event.ADDED_TO_STAGE, init);
 		}
@@ -74,8 +82,8 @@ package emptyLib.Games.Avem {
 		
 		private function loadQuestions():void{
 			var request:URLRequest=new URLRequest();
-			//request.url="/trivia/estacion_preguntas?question_id=" + String(this.og.question_id);
-			request.url="http://localhost:2001/trivia/estacion_preguntas?question_id=" + String(this.og.question_id);			
+			request.url="/trivia/estacion_preguntas?question_id=" + String(this.og.question_id);
+			//request.url="http://localhost:2001/trivia/estacion_preguntas?question_id=" + String(this.og.question_id);			
 			request.requestHeaders=[new URLRequestHeader("Content-Type", "application/json")];
 			request.method=URLRequestMethod.GET;
 			var loader:URLLoader=new URLLoader();
@@ -109,6 +117,10 @@ package emptyLib.Games.Avem {
 			}
 			this.station.map.points =  this.station.map.points + this.respuestas[i].og.puntos;
 			this.station.map.updatePoints();
+			this.yiguiSound.play();
+			this.addChild(this.yiguirro);
+			this.yiguirro.x = 100;
+			this.yiguirro.y = 100;
 			var timeout:Timer = new Timer(2500);
 			timeout.addEventListener(TimerEvent.TIMER, setEnd);
 			timeout.start();	
