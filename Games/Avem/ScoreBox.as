@@ -15,6 +15,8 @@ package emptyLib.Games.Avem {
 			var tf:TextFormat = new TextFormat();
 			tf.size = 20;
 			tf.color = 0xff8000;
+			
+			
 			var pf:TextFormat = new TextFormat();
 			pf.size = 14;
 			pf.color = 0x0040FF;
@@ -26,12 +28,15 @@ package emptyLib.Games.Avem {
 			nombreLabel.x = 10;
 			nombreLabel.y = 10;
 			
+			var nf:TextFormat = new TextFormat();
+			nf.size = 20;
+			nf.color = 0x000000;
 			this.nombreTxt = new TextField();
-			this.nombreTxt.defaultTextFormat = tf;
+			this.nombreTxt.defaultTextFormat = nf;
 			this.addChild(this.nombreTxt);
 			nombreTxt.width = 300;
 			nombreTxt.text = " ";
-			nombreTxt.x = 100;
+			nombreTxt.x = 85;
 			nombreTxt.y = 10;
 			
 			this.pointsLabel = new TextField();
@@ -39,7 +44,7 @@ package emptyLib.Games.Avem {
 			this.addChild(this.pointsLabel);
 			pointsLabel.width = 300;
 			pointsLabel.text = "Puntos:";
-			pointsLabel.x = 300;
+			pointsLabel.x = 335;
 			pointsLabel.y = 10;
 			
 			this.puntosTxt = new TextField();

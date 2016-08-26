@@ -171,6 +171,7 @@ package emptyLib.Games.Avem {
 				stations[next].activateStation();
 			}else{
 				var subt:Number = Math.round((points * 100)/(stations.length * 10));
+				//ExternalInterface.call("console.log","obtuviste YII:" + subt.toString());
 				this.resultBox = new ResultadoBox("Obtuviste:"+ subt.toString() +"%",this);
 				this.addChild(this.resultBox);
 			}
@@ -178,6 +179,7 @@ package emptyLib.Games.Avem {
 		
 		public function updatePoints():void{
 			this.pBox.puntosTxt.text = " ";
+			//ExternalInterface.call("console.log","actualizandopuntosYII:" + this.points.toString());
 			this.pBox.puntosTxt.text = this.points.toString();
 		}
 		

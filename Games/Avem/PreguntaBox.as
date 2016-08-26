@@ -116,7 +116,8 @@ package emptyLib.Games.Avem {
 			for each(var r:emptyLib.Games.Avem.RespuestaBox in this.respuestas){
 				r.removeClick();
 			}
-			this.station.map.points =  this.station.map.points + this.respuestas[i].og.puntos;
+			
+			this.station.map.points =  this.station.map.points + parseInt(this.respuestas[i].og.puntos);
 			this.station.map.updatePoints();
 			this.yiguiSound.play();
 			this.addChild(this.yiguirro);
