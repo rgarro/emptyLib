@@ -170,13 +170,14 @@ package emptyLib.Games.Avem {
 			if(next < this.stations.length){
 				stations[next].activateStation();
 			}else{
-				var subt:Number = (points * 100)/(stations.length * 10);
+				var subt:Number = Math.round((points * 100)/(stations.length * 10));
 				this.resultBox = new ResultadoBox("Obtuviste:"+ subt.toString() +"%",this);
 				this.addChild(this.resultBox);
 			}
 		}		
 		
 		public function updatePoints():void{
+			this.pBox.puntosTxt.text = " ";
 			this.pBox.puntosTxt.text = this.points.toString();
 		}
 		
