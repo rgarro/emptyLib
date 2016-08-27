@@ -27,7 +27,7 @@ package emptyLib.Games.Avem {
 	public class Map extends Sprite {
 		
 		public var map:Bitmap;
-		//protected var nombreBox:AvemNombre;
+		
 		public var nombreBox:NombreBox;
 		protected var nombreJugador:String;
 		
@@ -87,34 +87,26 @@ package emptyLib.Games.Avem {
 		
 		public function iniciarClick(nombre:String):void{
 			this.nombreJugador = nombre;
-			if( this.nombreJugador.length > 3){
-				//this.nombreBox.inicioBtn.removeEventListener(MouseEvent.CLICK, iniciarClick);
-				this.removeChild(this.nombreBox);
-				this.addChild(this.pBox);
-				this.pBox.nombreTxt.text = this.nombreJugador as String;
-				this.pBox.puntosTxt.text = this.points.toString();
-				
-				this.addChild(this.zopilote);
-				this.zopilote.x = 400;
-				this.zopilote.y = -30;
-				this.zopiSound.play();
-				TweenLite.to(this.zopilote, 3.5, {x:-130, y:200, scaleX:0.7, scaleY:0.7});
-				
-				this.loadStations();
-				this.soundBtn = new SoundSwitchBtn();
-				this.addChild(this.soundBtn);			
-			}else{
-				this.errorSound.play();
-				//this.nombreBox.errMsg.text = " *Nombre";
-			}
+			this.removeChild(this.nombreBox);
+			this.addChild(this.pBox);
+			this.pBox.nombreTxt.text = this.nombreJugador as String;
+			this.pBox.puntosTxt.text = this.points.toString();
+			this.addChild(this.zopilote);
+			this.zopilote.x = 400;
+			this.zopilote.y = -30;
+			this.zopiSound.play();
+			TweenLite.to(this.zopilote, 3.5, {x:-130, y:200, scaleX:0.7, scaleY:0.7});
+			this.loadStations();
+			this.soundBtn = new SoundSwitchBtn();
+			this.addChild(this.soundBtn);			
 		}
 		
 		
 		
 		protected function loadStations():void{
 			var request:URLRequest=new URLRequest();
-			//request.url="/trivia/estaciones";
-			request.url="http://localhost:2001/trivia/estaciones";
+			request.url="/trivia/estaciones";
+			//request.url="http://localhost:2001/trivia/estaciones";
 			request.requestHeaders=[new URLRequestHeader("Content-Type", "application/json")];
 			request.method=URLRequestMethod.GET;
 			var loader:URLLoader=new URLLoader();

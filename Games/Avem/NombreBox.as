@@ -19,6 +19,7 @@ package emptyLib.Games.Avem {
 		protected var buttonBox:Sprite;
 		public var map:Map;
 		protected var nombreInput:TextField;
+		protected var first_error:Boolean;
 		
 		[Embed(source="../../Assets/Sounds/Excite-xiar0-8512_hifi.mp3")] 
         protected var errorSoundClass:Class; 
@@ -26,6 +27,8 @@ package emptyLib.Games.Avem {
 		protected var errorSound:Sound;
 		
 		public function NombreBox():void {
+			
+			this.first_error = false;
 			
 			this.assets = new Assets();
 			this.bg = new Bitmap(assets.NombreBoxBGData);
@@ -53,7 +56,7 @@ package emptyLib.Games.Avem {
 			
 			 
 			this.nombreInput.x = 81; this.nombreInput.y = 82;
-			this.nombreInput.text = "asdf";
+			
 			this.errorSound = new errorSoundClass() as Sound;
 			
 			
@@ -66,10 +69,25 @@ package emptyLib.Games.Avem {
 			this.buttonBox.addChild(this.button);
 			this.buttonBox.x=125; this.buttonBox.y = 146;
 			this.buttonBox.addEventListener(MouseEvent.CLICK, theClick);
+			
+			this.errMsg = new Bitmap(assets.NombreBoxErrMsgData);
 		}
 		
 		protected function theClick(e:MouseEvent):void{
-			this.errorSound.play();
+			if(first_error){
+				this.removeChild(this.errMsg);
+			}
+			if( this.nombreInput.length > 3){
+				this.removeEventListener(MouseEvent.CLICK, theClick);
+				this.map.iniciarClick(this.nombreInput.text);			
+			}else{
+				this.errorSound.play();
+				this.addChild(this.errMsg);
+				this.errMsg.x = 113; this.y = 118;
+				this.first_error = true;
+				//this.nombreBox.errMsg.text = " *Nombre";
+			}
+			
 		}
 	}
 }
