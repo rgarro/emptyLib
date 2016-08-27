@@ -50,7 +50,7 @@ package emptyLib.Games.Avem {
 			this.puntosTxt = new TextField();
 			this.puntosTxt.defaultTextFormat = tf;
 			this.addChild(this.puntosTxt);
-			puntosTxt.width = 300;
+			puntosTxt.width = 50;
 			puntosTxt.text = "0";
 			puntosTxt.x = 400;
 			puntosTxt.y = 10;			

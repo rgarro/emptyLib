@@ -55,6 +55,8 @@ package emptyLib.Games.Avem {
 		protected var stations:Array = [];
 		protected var station:Station;
 		
+		protected var soundBtn:SoundSwitchBtn;
+		
 		public function Map():void {
 			this.addEventListener(Event.ADDED_TO_STAGE,init);
 			this.nombreBox = new AvemNombre();
@@ -81,6 +83,7 @@ package emptyLib.Games.Avem {
 			this.nombreBox.x = 80;
 			this.nombreBox.y = 100;
 			this.nombreBox.inicioBtn.addEventListener(MouseEvent.CLICK, iniciarClick);
+			
 		}
 		
 		protected function iniciarClick(event:MouseEvent):void{
@@ -99,7 +102,8 @@ package emptyLib.Games.Avem {
 				TweenLite.to(this.zopilote, 3.5, {x:-130, y:200, scaleX:0.7, scaleY:0.7});
 				
 				this.loadStations();
-							
+				this.soundBtn = new SoundSwitchBtn();
+				this.addChild(this.soundBtn);			
 			}else{
 				this.errorSound.play();
 				this.nombreBox.errMsg.text = " *Nombre";

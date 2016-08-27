@@ -125,5 +125,30 @@ package emptyLib.Games.Avem {
 		public function get endBtnData():BitmapData{
 			return _endBtn.bitmapData;
 		}
+		
+		[Embed(source="Assets/onSound.png")]
+		private var onSound:Class;
+		private var _onSound:Bitmap = new onSound() as Bitmap;
+		
+		public function get onSoundClass():Bitmap{
+			return _onSound;
+		}
+		
+		public function get onSoundData():BitmapData{
+			return _onSound.bitmapData;
+		}
+		
+		[Embed(source="Assets/offSound.png")]
+		private var offSound:Class;
+		private var _offSound:Bitmap = new offSound() as Bitmap;
+		
+		public function get offSoundClass():Bitmap{
+			return _offSound;
+		}
+		
+		public function get offSoundData():BitmapData{
+			return _offSound.bitmapData;
+		}
+		
 	}
 }
