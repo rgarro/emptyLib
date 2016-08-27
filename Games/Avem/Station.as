@@ -14,6 +14,8 @@ package emptyLib.Games.Avem {
 		protected var markerX:Number;
 		protected var markerY:Number;
 		public var active:Boolean;
+		public var preguntaIndex:Number;
+		public var totalPreguntas:Number;
 		
 		[Embed(source="../../Assets/Sounds/ambient_-agent_vi-7414_hifi.mp3")] 
         protected var clickSoundClass:Class; 
@@ -34,6 +36,7 @@ package emptyLib.Games.Avem {
 		public var index:Number;
 		
 		public function Station(mX:Number,mY:Number,dataObj:Object,is_active:Boolean=true):void {
+			this.preguntaIndex = 0;
 			this.preguntas = new Array();
 			this.active = is_active; 
 			this.dObj = dataObj;
@@ -65,14 +68,23 @@ package emptyLib.Games.Avem {
 				this.buttonMode = false;
 				this.removeEventListener(MouseEvent.CLICK, iniciarClick);
 				this.clickSound.play();
-				this.preguntaBox = new emptyLib.Games.Avem.PreguntaBox(this.dObj);
-				this.preguntaBox.station = this;
-				this.addChild(this.preguntaBox);
-				//this.mouseChildren = false;
-				this.preguntaBox.x = 55; this.preguntaBox.y = 55;
+				this.totalPreguntas = this.dObj.questions.length;
+				this.preguntaLoop(this.preguntaIndex);
+				
 			}else{
 				this.nonclickSound.play();
 			}	
+		}
+		
+		
+		public function preguntaLoop(index:Number):void{
+			this.dObj.pindex = index + 1;
+			this.dObj.question_id = this.dObj.questions[index].question_id;	
+			this.dObj.question = this.dObj.questions[index].question_body;					
+			this.preguntaBox = new emptyLib.Games.Avem.PreguntaBox(this.dObj);
+			this.preguntaBox.station = this;
+			this.addChild(this.preguntaBox);
+			this.preguntaBox.x = 55; this.preguntaBox.y = 55;
 		}
 		
 		public function activateStation():void{
@@ -96,15 +108,20 @@ package emptyLib.Games.Avem {
 		}
 		
 		public function terminarPregunta():void{
+			this.preguntaIndex = this.preguntaIndex + 1;
 			this.removeChild(this.preguntaBox);
-			this.removeChild(this.marker);
-			this.marker = null;
-			this.marker = new Bitmap(assets.mapmarkeroffData);
-			this.active = false;
-			this.addChild(this.marker);
-			this.marker.x = this.markerX;
-			this.marker.y = this.markerY;
-			this.map.nextStation(this.index + 1);
+			if(this.preguntaIndex < this.totalPreguntas){
+				this.preguntaLoop(this.preguntaIndex);
+			}else{
+				this.removeChild(this.marker);
+				this.marker = null;
+				this.marker = new Bitmap(assets.mapmarkeroffData);
+				this.active = false;
+				this.addChild(this.marker);
+				this.marker.x = this.markerX;
+				this.marker.y = this.markerY;
+				this.map.nextStation(this.index + 1);
+			}
 		}
 		
 		public function hideMarker():void{

@@ -72,7 +72,7 @@ package emptyLib.Games.Avem {
 			this.pregunta = new TextField();
 			this.pregunta.defaultTextFormat = pf;
 			this.addChild(this.pregunta);
-			this.pregunta.text = this.og.question as String;
+			this.pregunta.text = String(this.og.pindex) + ": " + this.og.question as String;
 			this.pregunta.multiline = true;
 			this.pregunta.wordWrap = true;
 			this.pregunta.width = 350;

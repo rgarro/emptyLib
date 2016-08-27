@@ -52,6 +52,7 @@ package emptyLib.Games.Avem {
 		protected var zopilote:Bitmap;
 		public var resultBox:ResultadoBox;
 		public var trivia:TriviaMap;
+		public var totalPreguntas:Number;
 		
 		protected var stations:Array = [];
 		protected var station:Station;
@@ -59,6 +60,7 @@ package emptyLib.Games.Avem {
 		protected var soundBtn:SoundSwitchBtn;
 		
 		public function Map():void {
+			this.totalPreguntas = 0;
 			this.addEventListener(Event.ADDED_TO_STAGE,init);
 			//this.nombreBox = new AvemNombre();
 			this.nombreBox = new NombreBox();
@@ -139,6 +141,7 @@ package emptyLib.Games.Avem {
 						var mY:Number = (Number(og.station_longitude) /2) - 50;
 						var mX:Number = (Number(og.station_latitude)/2) - 25;
 						station = new Station(mX, mY,og,active);
+						totalPreguntas = totalPreguntas = og.questions.length;
 						station.map = this;
 						station.index = i;
 						this.addChild(station);
@@ -165,8 +168,8 @@ package emptyLib.Games.Avem {
 			if(next < this.stations.length){
 				stations[next].activateStation();
 			}else{
-				var subt:Number = Math.round((points * 100)/(stations.length * 10));
-				//ExternalInterface.call("console.log","obtuviste YII:" + subt.toString());
+				//var subt:Number = Math.round((points * 100)/(stations.length * 10));
+				var subt:Number = Math.round((points * 100)/(totalPreguntas * 10));
 				this.resultBox = new ResultadoBox("Obtuviste:"+ subt.toString() +"%",this);
 				this.addChild(this.resultBox);
 			}
@@ -174,7 +177,6 @@ package emptyLib.Games.Avem {
 		
 		public function updatePoints():void{
 			this.pBox.puntosTxt.text = " ";
-			//ExternalInterface.call("console.log","actualizandopuntosYII:" + this.points.toString());
 			this.pBox.puntosTxt.text = this.points.toString();
 		}
 		
