@@ -27,7 +27,8 @@ package emptyLib.Games.Avem {
 	public class Map extends Sprite {
 		
 		public var map:Bitmap;
-		protected var nombreBox:AvemNombre;
+		//protected var nombreBox:AvemNombre;
+		public var nombreBox:NombreBox;
 		protected var nombreJugador:String;
 		
 		[Embed(source="../../Assets/Sounds/Excite-xiar0-8512_hifi.mp3")] 
@@ -59,7 +60,9 @@ package emptyLib.Games.Avem {
 		
 		public function Map():void {
 			this.addEventListener(Event.ADDED_TO_STAGE,init);
-			this.nombreBox = new AvemNombre();
+			//this.nombreBox = new AvemNombre();
+			this.nombreBox = new NombreBox();
+			this.nombreBox.map = this;
 			this.points = 0;
 			
 			this.pBox = new ScoreBox();
@@ -80,16 +83,12 @@ package emptyLib.Games.Avem {
 			this.addChild(this.map);
 			this.map.height = 500;this.map.width = 500;
 			this.addChild(this.nombreBox);
-			this.nombreBox.x = 80;
-			this.nombreBox.y = 100;
-			this.nombreBox.inicioBtn.addEventListener(MouseEvent.CLICK, iniciarClick);
-			
 		}
 		
-		protected function iniciarClick(event:MouseEvent):void{
-			this.nombreJugador = this.nombreBox.nombreJugador.text;
+		public function iniciarClick(nombre:String):void{
+			this.nombreJugador = nombre;
 			if( this.nombreJugador.length > 3){
-				this.nombreBox.inicioBtn.removeEventListener(MouseEvent.CLICK, iniciarClick);
+				//this.nombreBox.inicioBtn.removeEventListener(MouseEvent.CLICK, iniciarClick);
 				this.removeChild(this.nombreBox);
 				this.addChild(this.pBox);
 				this.pBox.nombreTxt.text = this.nombreJugador as String;
@@ -106,7 +105,7 @@ package emptyLib.Games.Avem {
 				this.addChild(this.soundBtn);			
 			}else{
 				this.errorSound.play();
-				this.nombreBox.errMsg.text = " *Nombre";
+				//this.nombreBox.errMsg.text = " *Nombre";
 			}
 		}
 		
@@ -114,8 +113,8 @@ package emptyLib.Games.Avem {
 		
 		protected function loadStations():void{
 			var request:URLRequest=new URLRequest();
-			request.url="/trivia/estaciones";
-			//request.url="http://localhost:2001/trivia/estaciones";
+			//request.url="/trivia/estaciones";
+			request.url="http://localhost:2001/trivia/estaciones";
 			request.requestHeaders=[new URLRequestHeader("Content-Type", "application/json")];
 			request.method=URLRequestMethod.GET;
 			var loader:URLLoader=new URLLoader();

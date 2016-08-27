@@ -150,5 +150,41 @@ package emptyLib.Games.Avem {
 			return _offSound.bitmapData;
 		}
 		
+		[Embed(source="Assets/NombreBoxBG.png")]
+		private var NombreBoxBG:Class;
+		private var _NombreBoxBG:Bitmap = new NombreBoxBG() as Bitmap;
+		
+		public function get NombreBoxBGClass():Bitmap{
+			return _NombreBoxBG;
+		}
+		
+		public function get NombreBoxBGData():BitmapData{
+			return _NombreBoxBG.bitmapData;
+		}
+		
+		[Embed(source="Assets/NombreBoxBtn.png")]
+		private var NombreBoxBtn:Class;
+		private var _NombreBoxBtn:Bitmap = new NombreBoxBtn() as Bitmap;
+		
+		public function get NombreBoxBtnClass():Bitmap{
+			return _NombreBoxBtn;
+		}
+		
+		public function get NombreBoxBtnData():BitmapData{
+			return _NombreBoxBtn.bitmapData;
+		}
+		
+		[Embed(source="Assets/NombreBoxErrMsg.png")]
+		private var NombreBoxErrMsg:Class;
+		private var _NombreBoxErrMsg:Bitmap = new NombreBoxErrMsg() as Bitmap;
+		
+		public function get NombreBoxErrMsgClass():Bitmap{
+			return _NombreBoxErrMsg;
+		}
+		
+		public function get NombreBoxErrMsgData():BitmapData{
+			return _NombreBoxErrMsg.bitmapData;
+		}
+		
 	}
 }
