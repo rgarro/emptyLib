@@ -12,6 +12,7 @@ package emptyLib.Iso {
 		protected var grid:IsoGrid;
 		protected var scene:IsoScene;
 		protected var view:IsoView;
+		public var cellSize:Number = 50;
 		
 		public function IsoTemplate():void {
 			this.grid = new IsoGrid();
