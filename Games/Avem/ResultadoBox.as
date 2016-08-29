@@ -1,13 +1,21 @@
 package emptyLib.Games.Avem {
+	import flash.media.Sound;
+	import emptyLib.Particles.Firework;
+	import org.flintparticles.twoD.emitters.Emitter2D;
 	import flash.events.MouseEvent;
 	import flash.text.TextFormat;
 	import flash.text.TextField;
 	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	import flash.external.ExternalInterface;
+  import org.flintparticles.twoD.renderers.BitmapRenderer;
+  import flash.filters.BlurFilter;
+  import flash.filters.ColorMatrixFilter;
+  import flash.geom.Rectangle;
+	
 
 	/**
-	 * @author rolando
+	 * @author Rolando <rolando@emptyart.xyz>
 	 */
 	public class ResultadoBox extends Sprite {
 		
@@ -17,6 +25,12 @@ package emptyLib.Games.Avem {
 		protected var endBtnCont:Sprite;
 		protected var myMap:Map;
 		
+		[Embed(source="../../Assets/Sounds/idg-expl-intermed-772_hifi.mp3")] 
+        protected var clickSoundClass:Class; 
+		protected var clickSound:Sound;
+	
+		
+		private var emitter:Emitter2D;
 		
 		public function ResultadoBox(percent:String,map:Map):void {
 			this.myMap = map;
@@ -46,7 +60,22 @@ package emptyLib.Games.Avem {
 			this.endBtnCont.buttonMode = true;
 			this.endBtnCont.x = 110;
 			this.endBtnCont.y = 182;
-			this.endBtnCont.addEventListener(MouseEvent.CLICK, reload);			
+			this.endBtnCont.addEventListener(MouseEvent.CLICK, reload);	
+			
+			this.clickSound = new clickSoundClass() as Sound;
+			
+			emitter = new Firework();
+      
+      var renderer:BitmapRenderer = new BitmapRenderer( new Rectangle( 0, 0, 500, 400 ) );
+      renderer.addFilter( new BlurFilter( 2, 2, 1 ) );
+      renderer.addFilter( new ColorMatrixFilter( [ 1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0.95,0 ] ) );
+      renderer.addEmitter( emitter );
+      addChild( renderer );
+      
+	  this.clickSound.play(0,3);
+      emitter.x = 145;
+      emitter.y = 95;
+      emitter.start();		
 		}
 		
 		protected function reload(e:MouseEvent):void{

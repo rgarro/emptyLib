@@ -35,6 +35,7 @@ package emptyLib.Games.Avem {
 		protected var yiguiSound:Sound;
 		protected var assets:Assets;
 		protected var yiguirro:Bitmap;
+		protected var timeout:Timer;
 		
 		public function PreguntaBox(dbObj:Object):void {
 			this.og = dbObj;
@@ -79,6 +80,9 @@ package emptyLib.Games.Avem {
 			this.pregunta.x = 10;
 			this.pregunta.y = 70;
 			this.loadQuestions();
+			
+			timeout = new Timer(2500);
+			timeout.addEventListener(TimerEvent.TIMER, setEnd);
 		}
 		
 		private function loadQuestions():void{
@@ -123,12 +127,12 @@ package emptyLib.Games.Avem {
 			this.addChild(this.yiguirro);
 			this.yiguirro.x = 100;
 			this.yiguirro.y = 100;
-			var timeout:Timer = new Timer(2500);
-			timeout.addEventListener(TimerEvent.TIMER, setEnd);
+			
 			timeout.start();	
 		}
 		
 		public function setEnd(e:Event):void{
+			timeout.stop();
 			this.station.terminarPregunta();
 		}
 		
