@@ -45,6 +45,7 @@ package emptyLib.Games.Avem {
 			tf.color = 0x000000;
 			
 			this.percentTxt = new TextField();
+			
 			this.percentTxt.defaultTextFormat = tf;
 			this.addChild(percentTxt);
 			percentTxt.width = 250;
