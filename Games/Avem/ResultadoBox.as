@@ -24,6 +24,7 @@ package emptyLib.Games.Avem {
 		protected var endBtn:Bitmap;
 		protected var endBtnCont:Sprite;
 		protected var myMap:Map;
+		protected var fbButton:Sprite;
 		
 		[Embed(source="../../Assets/Sounds/idg-expl-intermed-772_hifi.mp3")] 
         protected var clickSoundClass:Class; 
@@ -61,22 +62,36 @@ package emptyLib.Games.Avem {
 			this.endBtnCont.buttonMode = true;
 			this.endBtnCont.x = 110;
 			this.endBtnCont.y = 182;
-			this.endBtnCont.addEventListener(MouseEvent.CLICK, reload);	
+			this.endBtnCont.addEventListener(MouseEvent.CLICK, reload);
 			
+			this.fbButton = new Sprite();
+			var fbLogo:Bitmap = new Bitmap(assets.fbbuttonData);
+			this.addChild(fbButton);
+			this.fbButton.addChild(fbLogo);
+			this.fbButton.useHandCursor = true;
+			this.fbButton.buttonMode = true;
+			this.fbButton.x = 80;
+			this.fbButton.y = 220;
+			this.fbButton.addEventListener(MouseEvent.CLICK, fbClick);
+			
+				
 			this.clickSound = new clickSoundClass() as Sound;
 			
 			emitter = new Firework();
-      
-      var renderer:BitmapRenderer = new BitmapRenderer( new Rectangle( 0, 0, 500, 400 ) );
-      renderer.addFilter( new BlurFilter( 2, 2, 1 ) );
-      renderer.addFilter( new ColorMatrixFilter( [ 1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0.95,0 ] ) );
-      renderer.addEmitter( emitter );
-      addChild( renderer );
+			var renderer:BitmapRenderer = new BitmapRenderer( new Rectangle( 0, 0, 500, 400 ) );
+			renderer.addFilter( new BlurFilter( 2, 2, 1 ) );
+			renderer.addFilter( new ColorMatrixFilter( [ 1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0.95,0 ] ) );
+			renderer.addEmitter( emitter );
+			addChild( renderer );
       
 	  this.clickSound.play(0,3);
       emitter.x = 145;
       emitter.y = 95;
       emitter.start();		
+		}
+		
+		protected function fbClick(e:MouseEvent):void{
+			var fbw:Fb = new Fb("Obtuvo en la Trivia de Avem:"+percentTxt.text);
 		}
 		
 		protected function reload(e:MouseEvent):void{

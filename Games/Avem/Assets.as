@@ -186,5 +186,17 @@ package emptyLib.Games.Avem {
 			return _NombreBoxErrMsg.bitmapData;
 		}
 		
+		[Embed(source="Assets/fbbutton.png")]
+		private var fbbutton:Class;
+		private var _fbbutton:Bitmap = new fbbutton() as Bitmap;
+		
+		public function get fbbuttonClass():Bitmap{
+			return _fbbutton;
+		}
+		
+		public function get fbbuttonData():BitmapData{
+			return _fbbutton.bitmapData;
+		}
+		
 	}
 }
