@@ -19,5 +19,29 @@ package emptyLib.Iso.Tutorial {
 			return _isoCopter.bitmapData;
 		}
 		
+		[Embed(source="Assets/sideCombatCopterA.png")]
+		private var sideCombatCopterA:Class;
+		private var _sideCombatCopterA:Bitmap = new sideCombatCopterA() as Bitmap;
+		
+		public function get sideCombatCopterAClass():Bitmap{
+			return _sideCombatCopterA;
+		}
+		
+		public function get sideCombatCopterAData():BitmapData{
+			return _sideCombatCopterA.bitmapData;
+		}
+		
+		[Embed(source="Assets/sideCombatCopterB.png")]
+		private var sideCombatCopterB:Class;
+		private var _sideCombatCopterB:Bitmap = new sideCombatCopterB() as Bitmap;
+		
+		public function get sideCombatCopterBClass():Bitmap{
+			return _sideCombatCopterB;
+		}
+		
+		public function get sideCombatCopterBData():BitmapData{
+			return _sideCombatCopterB.bitmapData;
+		}
+		
 	}
 }
