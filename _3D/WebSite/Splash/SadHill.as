@@ -21,6 +21,8 @@ package emptyLib._3D.WebSite.Splash {
 		public var ugly:TextField;//y
 		public var good:TextField;//z
 		
+		public var flag:int = 1; 
+		
 		public function SadHill():void {
 			super();
 		}
@@ -83,12 +85,33 @@ package emptyLib._3D.WebSite.Splash {
 				Horse.rotationY += 5;
 				Horse.y += 10;
 			}else{
-				if(Horse.x < 478){
+				if(Horse.x < 478 && Horse.z < 3000){
 					Horse.rotationY -= 1;
 				}
-				Horse.z += 35;
+				
+				if(Horse.z > 3000 && Horse.z < 3100){
+					Horse.rotationY -= 200;
+					
+					camera.z = Horse.z - 200;
+					camera.x = Horse.x;
+					camera.y = Horse.y;
+					camera.rotationY -= 200;//Horse.rotationY;
+					this.flag = 2;
+				}
+				
+				if(this.flag == 1){
+					Horse.z += 35;
 				Horse.x += 8;
 				Horse.y += 1;
+				
+				camera.z += 35;
+				camera.x += 8;
+				camera.y += 1;
+				}else{
+					Horse.z -= 35;
+					camera.z -= 35;
+				}
+				
 			}
 		}
 	}
