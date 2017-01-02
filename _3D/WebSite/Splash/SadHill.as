@@ -2,6 +2,7 @@
 package emptyLib._3D.WebSite.Splash {
 	import flash.text.TextField;
 	import away3d.core.base.Object3D;
+	import away3d.primitives.Trident;
 	import emptyLib._3D.Template;
 	/**
 	 * @author Rolando
@@ -59,7 +60,7 @@ package emptyLib._3D.WebSite.Splash {
 		
 		protected override function  initScene():void{
 			super.initScene();
-			
+			this.view.scene.addChild(new Trident(50));
 			Western = new Migs();
 			
 			//Western.x = 200;
@@ -91,11 +92,10 @@ package emptyLib._3D.WebSite.Splash {
 				
 				if(Horse.z > 3000 && Horse.z < 3100){
 					Horse.rotationY -= 200;
-					
-					camera.z = Horse.z - 200;
-					camera.x = Horse.x;
-					camera.y = Horse.y;
-					camera.rotationY -= 200;//Horse.rotationY;
+					camera.z = Horse.z + 2000;
+					camera.x = Horse.x - 500;
+					camera.y = Horse.y + 300;
+					camera.rotationY = Horse.rotationY + 180 ;
 					this.flag = 2;
 				}
 				
