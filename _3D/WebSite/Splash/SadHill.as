@@ -3,7 +3,10 @@ package emptyLib._3D.WebSite.Splash {
 	import flash.text.TextField;
 	import away3d.core.base.Object3D;
 	import away3d.primitives.Trident;
+
 	import emptyLib._3D.Template;
+
+	import mx.controls.sliderClasses.Slider;
 	/**
 	 * @author Rolando
 	 */
@@ -12,7 +15,7 @@ package emptyLib._3D.WebSite.Splash {
 	import away3d.containers.ObjectContainer3D;
 	import flash.events.Event;
 
-	[SWF(height="480",width="640",frameRate="35")]//Under the arc of a weather stain boards ...
+	[SWF(height="480",width="800",frameRate="35")]//Under the arc of a weather stain boards ...
 	public class SadHill extends Template {
 		
 		public var Western:ObjectContainer3D; 
@@ -21,6 +24,7 @@ package emptyLib._3D.WebSite.Splash {
 		public var bad:TextField;//x
 		public var ugly:TextField;//y
 		public var good:TextField;//z
+		public var mig_rotation:TextField;//z
 		
 		public var flag:int = 1; 
 		
@@ -32,7 +36,7 @@ package emptyLib._3D.WebSite.Splash {
 			var hat:TextField = new TextField();
 			hat.textColor = 0x000000;
 			hat.width = 50;
-			hat.y = 10;
+			hat.y = 5;
 			return hat;
 		}
 		
@@ -48,6 +52,11 @@ package emptyLib._3D.WebSite.Splash {
 			good = blackHat();
 			this.addChild(good);
 			good.x = 450;
+			
+			mig_rotation = blackHat();
+			this.addChild(mig_rotation);
+			mig_rotation.x = 550;
+			
 		}
 		
 		protected override function initEngine():void
@@ -77,41 +86,19 @@ package emptyLib._3D.WebSite.Splash {
  			bad.text = "X:" + Horse.x.toString();
 			ugly.text = "Y:" + Horse.y.toString();
 			good.text = "Z:" + Horse.z.toString();
-            
+            mig_rotation.text = "RotY:" + Horse.rotationY.toString();
         }
 		
-		private function stantonRoad():void{
-			
-			if(Horse.y < 550){
-				Horse.rotationY += 5;
-				Horse.y += 10;
-			}else{
-				if(Horse.x < 478 && Horse.z < 3000){
-					Horse.rotationY -= 1;
-				}
-				
-				if(Horse.z > 3000 && Horse.z < 3100){
-					Horse.rotationY -= 200;
-					camera.z = Horse.z + 2000;
-					camera.x = Horse.x - 500;
-					camera.y = Horse.y + 300;
-					camera.rotationY = Horse.rotationY + 180 ;
-					this.flag = 2;
-				}
-				
-				if(this.flag == 1){
-					Horse.z += 35;
-				Horse.x += 8;
-				Horse.y += 1;
-				
-				camera.z += 35;
-				camera.x += 8;
-				camera.y += 1;
+		private function stantonRoad():void{//taking off sumatoria
+			if(this.flag == 1){
+				if(Horse.y < 550){
+					Horse.rotationY += 4;
+					Horse.y += 10;
 				}else{
-					Horse.z -= 35;
-					camera.z -= 35;
+					Horse.rotationY = 180;
+					this.flag = 2;
+					//show the throttle button ...
 				}
-				
 			}
 		}
 	}
