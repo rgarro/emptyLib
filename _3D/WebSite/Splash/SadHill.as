@@ -6,7 +6,8 @@ package emptyLib._3D.WebSite.Splash {
 
 	import emptyLib._3D.Template;
 
-	import mx.controls.sliderClasses.Slider;
+	import cuatroPlumasUI.GrayApp.Button;
+
 	/**
 	 * @author Rolando
 	 */
@@ -25,6 +26,7 @@ package emptyLib._3D.WebSite.Splash {
 		public var ugly:TextField;//y
 		public var good:TextField;//z
 		public var mig_rotation:TextField;//z
+		public var plus_throttleBtn:Button;
 		
 		public var flag:int = 1; 
 		
@@ -57,6 +59,14 @@ package emptyLib._3D.WebSite.Splash {
 			this.addChild(mig_rotation);
 			mig_rotation.x = 550;
 			
+			plus_throttleBtn = new Button("+рост");
+			
+			this.addChild(plus_throttleBtn);
+			//plus_throttleBtn.height =  30;
+			//plus_throttleBtn.width = 200;
+			plus_throttleBtn.x = 200;
+			plus_throttleBtn.y = 380;
+			
 		}
 		
 		protected override function initEngine():void
@@ -83,9 +93,9 @@ package emptyLib._3D.WebSite.Splash {
 		private function onRiding(e:Event):void
 		{
 			stantonRoad();
- 			bad.text = "X:" + Horse.x.toString();
-			ugly.text = "Y:" + Horse.y.toString();
-			good.text = "Z:" + Horse.z.toString();
+ 			bad.text = "Икс:" + Horse.x.toString();
+			ugly.text = "год:" + Horse.y.toString();
+			good.text = "зет:" + Horse.z.toString();
             mig_rotation.text = "RotY:" + Horse.rotationY.toString();
         }
 		
