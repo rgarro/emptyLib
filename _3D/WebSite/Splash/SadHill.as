@@ -34,6 +34,10 @@ package emptyLib._3D.WebSite.Splash {
 		public var mig_rotation:TextField;//z
 		public var plus_throttleBtn:Button;
 		public var less_throttleBtn:Button;
+		
+		public var dive_rightBtn:Button;
+		public var dive_leftBtn:Button;
+		
 		public var mig_init:int = 0;
 		public var camera_init:int = -2000;
 		
