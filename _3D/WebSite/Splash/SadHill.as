@@ -89,12 +89,41 @@ package emptyLib._3D.WebSite.Splash {
 			less_throttleBtn.x = 50;
 			less_throttleBtn.y = 430;
 			this.less_throttleBtn.addEventListener(MouseEvent.CLICK, doThrottleless);
+			
+			dive_rightBtn = new Button("  >");
+			this.addChild(dive_rightBtn);
+			dive_rightBtn.x = 130;
+			dive_rightBtn.y = 320;
+			this.dive_rightBtn.addEventListener(MouseEvent.CLICK, diveRight);
+			
+			dive_leftBtn = new Button("<  ");
+			this.addChild(dive_leftBtn);
+			dive_leftBtn.x = 20;
+			dive_leftBtn.y = 320;
+			this.dive_leftBtn.addEventListener(MouseEvent.CLICK, diveLeft);
 		}
 		
 		protected function doThrottlePlus(e:MouseEvent):void {
 			if(this.mig_speed < 35){
 				this.mig_speed += 4;
 			}
+		}
+		
+		
+		protected function diveRight(e:MouseEvent):void {
+			Horse.x += 25;
+			camera.x += 25;
+			/*if(this.mig_speed < 35){
+				this.mig_speed += 4;
+			}*/
+		}
+		
+		protected function diveLeft(e:MouseEvent):void {
+			Horse.x -= 25;
+			camera.x -= 25;
+			/*if(this.mig_speed < 35){
+				this.mig_speed += 4;
+			}*/
 		}
 		
 		protected function doThrottleless(e:MouseEvent):void {
