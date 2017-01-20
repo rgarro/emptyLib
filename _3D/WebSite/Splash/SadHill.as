@@ -40,7 +40,11 @@ package emptyLib._3D.WebSite.Splash {
 		
 		public var mig_init:int = 0;
 		public var camera_init:int = -2000;
-		
+		protected var dive_speed:int = 32;
+		protected var max_x:int = 6175;
+		protected var return_x:int = 0;
+		protected var min_x:int = -720;
+		protected var min_speed_to_dive:int = 8;
 		
 		public var flag:int = 1;
 		public var mig_speed:int = 0; 
@@ -111,16 +115,28 @@ package emptyLib._3D.WebSite.Splash {
 		
 		
 		protected function diveRight(e:MouseEvent):void {
-			Horse.x += 25;
-			camera.x += 25;
+			if(this.mig_speed > this.min_speed_to_dive){
+				Horse.x += this.dive_speed;
+				camera.x += this.dive_speed;
+			}
+			if(Horse.x > this.max_x){
+				Horse.x = this.return_x;
+				camera.x = this.return_x;
+			}	
 			/*if(this.mig_speed < 35){
 				this.mig_speed += 4;
 			}*/
 		}
 		
 		protected function diveLeft(e:MouseEvent):void {
-			Horse.x -= 25;
-			camera.x -= 25;
+			if(this.mig_speed > this.min_speed_to_dive){
+				Horse.x -= this.dive_speed;
+				camera.x -= this.dive_speed;
+			}	
+			if(Horse.x < this.min_x){
+				Horse.x = this.return_x;
+				camera.x = this.return_x;
+			}
 			/*if(this.mig_speed < 35){
 				this.mig_speed += 4;
 			}*/
