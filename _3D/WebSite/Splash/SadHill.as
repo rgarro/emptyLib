@@ -35,6 +35,9 @@ package emptyLib._3D.WebSite.Splash {
 		public var plus_throttleBtn:Button;
 		public var less_throttleBtn:Button;
 		
+		public var plus_elevationBtn:Button;
+		public var less_elevationBtn:Button;
+		
 		public var dive_rightBtn:Button;
 		public var dive_leftBtn:Button;
 		
@@ -82,15 +85,15 @@ package emptyLib._3D.WebSite.Splash {
 			this.addChild(speed_gauge);
 			speed_gauge.x = 650;
 			this.jetSound = new jetSoundClass() as Sound;
-			plus_throttleBtn = new Button("+рост");
+			plus_throttleBtn = new Button("+");
 			this.addChild(plus_throttleBtn);
-			plus_throttleBtn.x = 50;
+			plus_throttleBtn.x = 180;
 			plus_throttleBtn.y = 380;
 			this.plus_throttleBtn.addEventListener(MouseEvent.CLICK, doThrottlePlus);
 			
-			less_throttleBtn = new Button("-спад");
+			less_throttleBtn = new Button("-");
 			this.addChild(less_throttleBtn);
-			less_throttleBtn.x = 50;
+			less_throttleBtn.x = 180;
 			less_throttleBtn.y = 430;
 			this.less_throttleBtn.addEventListener(MouseEvent.CLICK, doThrottleless);
 			
@@ -105,6 +108,18 @@ package emptyLib._3D.WebSite.Splash {
 			dive_leftBtn.x = 20;
 			dive_leftBtn.y = 320;
 			this.dive_leftBtn.addEventListener(MouseEvent.CLICK, diveLeft);
+			
+			plus_elevationBtn = new Button(" ^ ");
+			this.addChild(plus_elevationBtn);
+			plus_elevationBtn.x = 75;
+			plus_elevationBtn.y = 280;
+			//this.plus_elevationBtn.addEventListener(MouseEvent.CLICK, icreaseElevation);
+			
+			less_elevationBtn = new Button("V");
+			this.addChild(less_elevationBtn);
+			less_elevationBtn.x = 75;
+			less_elevationBtn.y = 360;
+			//this.less_elevationBtn.addEventListener(MouseEvent.CLICK, decreaseElevation);
 		}
 		
 		protected function doThrottlePlus(e:MouseEvent):void {
