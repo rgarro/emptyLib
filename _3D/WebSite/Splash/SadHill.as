@@ -48,6 +48,9 @@ package emptyLib._3D.WebSite.Splash {
 		protected var return_x:int = 0;
 		protected var min_x:int = -720;
 		protected var min_speed_to_dive:int = 8;
+		protected var min_y:int = 100;
+		protected var max_y:int = 2000;
+		protected var  return_y:int = 500;
 		
 		public var flag:int = 1;
 		public var mig_speed:int = 0; 
@@ -113,13 +116,13 @@ package emptyLib._3D.WebSite.Splash {
 			this.addChild(plus_elevationBtn);
 			plus_elevationBtn.x = 75;
 			plus_elevationBtn.y = 280;
-			//this.plus_elevationBtn.addEventListener(MouseEvent.CLICK, icreaseElevation);
+			this.plus_elevationBtn.addEventListener(MouseEvent.CLICK, increaseElevation);
 			
 			less_elevationBtn = new Button("V");
 			this.addChild(less_elevationBtn);
 			less_elevationBtn.x = 75;
 			less_elevationBtn.y = 360;
-			//this.less_elevationBtn.addEventListener(MouseEvent.CLICK, decreaseElevation);
+			this.less_elevationBtn.addEventListener(MouseEvent.CLICK, decreaseElevation);
 		}
 		
 		protected function doThrottlePlus(e:MouseEvent):void {
@@ -128,6 +131,33 @@ package emptyLib._3D.WebSite.Splash {
 			}
 		}
 		
+		protected function decreaseElevation(e:MouseEvent):void {
+			if(this.mig_speed > this.min_speed_to_dive){
+				Horse.y -= this.dive_speed;
+				camera.y -= this.dive_speed;
+			}
+			if(Horse.y < this.min_y){
+				Horse.y = this.return_y;
+				camera.y = 300;//this.return_x;
+			}	
+			/*if(this.mig_speed < 35){
+				this.mig_speed += 4;
+			}*/
+		}
+		
+		protected function increaseElevation(e:MouseEvent):void {
+			if(this.mig_speed > this.min_speed_to_dive){
+				Horse.y += this.dive_speed;
+				camera.y += this.dive_speed;
+			}
+			if(Horse.y > this.max_y){
+				Horse.y = this.return_y;
+				camera.y = 300;//this.return_x;
+			}	
+			/*if(this.mig_speed < 35){
+				this.mig_speed += 4;
+			}*/
+		}
 		
 		protected function diveRight(e:MouseEvent):void {
 			if(this.mig_speed > this.min_speed_to_dive){
@@ -136,7 +166,7 @@ package emptyLib._3D.WebSite.Splash {
 			}
 			if(Horse.x > this.max_x){
 				Horse.x = this.return_x;
-				camera.x = this.return_x;
+				camera.x = this.init_camera_x;//this.return_x;
 			}	
 			/*if(this.mig_speed < 35){
 				this.mig_speed += 4;
@@ -150,7 +180,7 @@ package emptyLib._3D.WebSite.Splash {
 			}	
 			if(Horse.x < this.min_x){
 				Horse.x = this.return_x;
-				camera.x = this.return_x;
+				camera.x = this.init_camera_x;//this.return_x;
 			}
 			/*if(this.mig_speed < 35){
 				this.mig_speed += 4;
@@ -167,9 +197,9 @@ package emptyLib._3D.WebSite.Splash {
 		protected override function initEngine():void
 		{
 			super.initEngine();
-			camera.z = -2000;
-			camera.x = -500;
-			camera.y = 300;
+			camera.z = this.init_camera_z;
+			camera.x = this.init_camera_x;
+			camera.y = this.init_camera_y;
 		}
 		
 		protected override function  initScene():void{

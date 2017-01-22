@@ -52,6 +52,10 @@ package emptyLib._3D
 		protected var scene:Scene3D;
 		protected var camera:Camera3D;
 		protected var view:View3D;
+		public var init_camera_z:int = -2000;
+		public var init_camera_x:int = -500;
+		public var init_camera_y:int = 300;
+		
 		
 		public function Template()
 		{
