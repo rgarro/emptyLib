@@ -1,5 +1,8 @@
 
 package emptyLib._3D.WebSite.Splash {
+	import flash.ui.Keyboard;
+	import mx.controls.Alert;
+	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import flash.text.TextField;
 	import away3d.core.base.Object3D;
@@ -84,17 +87,19 @@ package emptyLib._3D.WebSite.Splash {
 			this.addChild(mig_rotation);
 			mig_rotation.x = 550;
 			
+			this.addEventListener(KeyboardEvent.KEY_DOWN, keyListener);
+			
 			speed_gauge = blackHat();
 			this.addChild(speed_gauge);
 			speed_gauge.x = 650;
 			this.jetSound = new jetSoundClass() as Sound;
-			plus_throttleBtn = new Button("+");
+			plus_throttleBtn = new Button("+ A");
 			this.addChild(plus_throttleBtn);
 			plus_throttleBtn.x = 180;
 			plus_throttleBtn.y = 380;
 			this.plus_throttleBtn.addEventListener(MouseEvent.CLICK, doThrottlePlus);
 			
-			less_throttleBtn = new Button("-");
+			less_throttleBtn = new Button("- S");
 			this.addChild(less_throttleBtn);
 			less_throttleBtn.x = 180;
 			less_throttleBtn.y = 430;
@@ -122,16 +127,41 @@ package emptyLib._3D.WebSite.Splash {
 			this.addChild(less_elevationBtn);
 			less_elevationBtn.x = 75;
 			less_elevationBtn.y = 360;
-			this.less_elevationBtn.addEventListener(MouseEvent.CLICK, decreaseElevation);
+			this.less_elevationBtn.addEventListener(MouseEvent.CLICK, decreaseElevation);	
 		}
 		
-		protected function doThrottlePlus(e:MouseEvent):void {
+		protected function keyListener(e:KeyboardEvent):void{
+			if(e.keyCode == Keyboard.A){
+				this.ThrottlePlus();
+			}
+			if(e.keyCode == Keyboard.S){
+				this.Throttleless();
+			}
+			if(e.keyCode == Keyboard.UP){
+				this.doIncreaseElevation();
+			}
+			if(e.keyCode == Keyboard.DOWN){
+				this.doDecreaseElevation();
+			}
+			if(e.keyCode == Keyboard.LEFT){
+				this.doDiveLeft();
+			}
+			if(e.keyCode == Keyboard.RIGHT){
+				this.doDiveRight();	
+			}
+		}
+		
+		protected function ThrottlePlus():void{
 			if(this.mig_speed < 35){
 				this.mig_speed += 4;
 			}
 		}
 		
-		protected function decreaseElevation(e:MouseEvent):void {
+		protected function doThrottlePlus(e:MouseEvent):void {
+			this.ThrottlePlus();
+		}
+		
+		protected function doDecreaseElevation():void{
 			if(this.mig_speed > this.min_speed_to_dive){
 				Horse.y -= this.dive_speed;
 				camera.y -= this.dive_speed;
@@ -145,7 +175,15 @@ package emptyLib._3D.WebSite.Splash {
 			}*/
 		}
 		
+		protected function decreaseElevation(e:MouseEvent):void {
+			this.doDecreaseElevation();
+		}
+		
 		protected function increaseElevation(e:MouseEvent):void {
+			this.doIncreaseElevation();
+		}
+		
+		protected function doIncreaseElevation():void{
 			if(this.mig_speed > this.min_speed_to_dive){
 				Horse.y += this.dive_speed;
 				camera.y += this.dive_speed;
@@ -159,7 +197,7 @@ package emptyLib._3D.WebSite.Splash {
 			}*/
 		}
 		
-		protected function diveRight(e:MouseEvent):void {
+		protected function doDiveRight():void{
 			if(this.mig_speed > this.min_speed_to_dive){
 				Horse.x += this.dive_speed;
 				camera.x += this.dive_speed;
@@ -173,7 +211,15 @@ package emptyLib._3D.WebSite.Splash {
 			}*/
 		}
 		
+		protected function diveRight(e:MouseEvent):void {
+			doDiveRight();
+		}
+		
 		protected function diveLeft(e:MouseEvent):void {
+			this.doDiveLeft();
+		}
+		
+		protected function doDiveLeft():void {
 			if(this.mig_speed > this.min_speed_to_dive){
 				Horse.x -= this.dive_speed;
 				camera.x -= this.dive_speed;
@@ -188,6 +234,10 @@ package emptyLib._3D.WebSite.Splash {
 		}
 		
 		protected function doThrottleless(e:MouseEvent):void {
+			this.Throttleless();
+		}
+		
+		protected function Throttleless():void{
 			this.mig_speed -= 4;
 			if(this.mig_speed < 0){
 				this.mig_speed = 0;
