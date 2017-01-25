@@ -1,7 +1,7 @@
 
 package emptyLib._3D.WebSite.Splash {
 	import flash.ui.Keyboard;
-	import mx.controls.Alert;
+	
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import flash.text.TextField;
@@ -87,13 +87,13 @@ package emptyLib._3D.WebSite.Splash {
 			this.addChild(mig_rotation);
 			mig_rotation.x = 550;
 			
-			this.addEventListener(KeyboardEvent.KEY_DOWN, keyListener);
 			
 			speed_gauge = blackHat();
 			this.addChild(speed_gauge);
 			speed_gauge.x = 650;
 			this.jetSound = new jetSoundClass() as Sound;
 			plus_throttleBtn = new Button("+ A");
+			//addEventListener(Event.ADDED_TO_STAGE, initKeyEvts);
 			this.addChild(plus_throttleBtn);
 			plus_throttleBtn.x = 180;
 			plus_throttleBtn.y = 380;
@@ -128,6 +128,11 @@ package emptyLib._3D.WebSite.Splash {
 			less_elevationBtn.x = 75;
 			less_elevationBtn.y = 360;
 			this.less_elevationBtn.addEventListener(MouseEvent.CLICK, decreaseElevation);	
+		}
+		
+		protected function initKeyEvts(e:Event):void {
+			removeEventListener(Event.ADDED_TO_STAGE,initKeyEvts);
+			addEventListener(KeyboardEvent.KEY_DOWN, keyListener);
 		}
 		
 		protected function keyListener(e:KeyboardEvent):void{
@@ -291,6 +296,7 @@ package emptyLib._3D.WebSite.Splash {
 					Horse.rotationY += 4;
 					Horse.y += 10;
 				}else{
+					addEventListener(KeyboardEvent.KEY_DOWN, keyListener);
 					this.mig_init = mig_init - 4200;
 					this.camera_init = camera_init - 4200;
 					Horse.rotationY = 180;
