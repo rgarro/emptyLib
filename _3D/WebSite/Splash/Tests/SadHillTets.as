@@ -1,12 +1,15 @@
 package emptyLib._3D.WebSite.Splash.Tests {
-	import org.flexunit.runners.model.TestClass;
+	
+	import flexunit.framework.Assert;
 
 	/**
-	 * @author rolando
+	 * @author Rolando
 	 */
-	public class SadHillTets extends TestClass {
-		public function SadHillTets():void {
-			
+	public class SadHillTets {
+		
+		[Test]
+		public function Test1One():void {
+			Assert.assertTrue(true);
 		}
 	}
 }
