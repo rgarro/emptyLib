@@ -1,5 +1,7 @@
 
 package emptyLib._3D.WebSite.Splash {
+	import flash.display.Sprite;
+	import flash.display.Bitmap;
 	import flash.ui.Keyboard;
 	
 	import flash.events.KeyboardEvent;
@@ -58,6 +60,11 @@ package emptyLib._3D.WebSite.Splash {
 		public var flag:int = 1;
 		public var mig_speed:int = 0; 
 		
+		protected var images:Images;
+		protected var startBtnImg:Bitmap;
+		protected var startBtn:Sprite;
+		protected var started:Boolean = false;
+		
 		public function SadHill():void {
 			super();
 		}
@@ -71,6 +78,20 @@ package emptyLib._3D.WebSite.Splash {
 		}
 		
 		protected function tucoCapturesBlondie():void{
+			
+			this.images = new Images();
+			this.startBtn = new Sprite();
+			this.addChild(startBtn);
+			this.startBtnImg = new Bitmap(this.images.startBtnData);
+			this.startBtn.addChild(this.startBtnImg);
+			this.startBtn.x = 52;
+			this.startBtn.y = 419;
+			this.startBtn.width = 104;
+			this.startBtn.height = 45;
+			this.startBtn.buttonMode = true;
+			this.startBtn.useHandCursor = true;
+			this.startBtn.addEventListener(MouseEvent.CLICK, startBtnClick);
+			
 			bad = blackHat();
 			this.addChild(bad);
 			bad.x = 200;
@@ -127,7 +148,8 @@ package emptyLib._3D.WebSite.Splash {
 			this.addChild(less_elevationBtn);
 			less_elevationBtn.x = 75;
 			less_elevationBtn.y = 360;
-			this.less_elevationBtn.addEventListener(MouseEvent.CLICK, decreaseElevation);	
+			this.less_elevationBtn.addEventListener(MouseEvent.CLICK, decreaseElevation);
+				
 		}
 		
 		protected function initKeyEvts(e:Event):void {
@@ -164,6 +186,14 @@ package emptyLib._3D.WebSite.Splash {
 		
 		protected function doThrottlePlus(e:MouseEvent):void {
 			this.ThrottlePlus();
+		}
+		
+		protected function startBtnClick(e:MouseEvent):void{
+			this.startBtn.removeEventListener(MouseEvent.CLICK, startBtnClick);
+			jetSound.play(0,100);
+			this.removeChild(startBtn);
+			this.started = true;
+			addEventListener(KeyboardEvent.KEY_DOWN, keyListener);
 		}
 		
 		protected function doDecreaseElevation():void{
@@ -278,7 +308,7 @@ package emptyLib._3D.WebSite.Splash {
 			good.text = "зет:" + Horse.z.toString();
             mig_rotation.text = "RotY:" + Horse.rotationY.toString();
 			speed_gauge.text = "спид:" + mig_speed.toString();
-			if(this.flag == 2){
+			if(this.flag == 2 && this.started){
 				if(this.mig_speed > 0){
 					Horse.z += mig_speed;
 					camera.z += mig_speed;
@@ -296,12 +326,11 @@ package emptyLib._3D.WebSite.Splash {
 					Horse.rotationY += 4;
 					Horse.y += 10;
 				}else{
-					addEventListener(KeyboardEvent.KEY_DOWN, keyListener);
 					this.mig_init = mig_init - 4200;
 					this.camera_init = camera_init - 4200;
 					Horse.rotationY = 180;
 					this.flag = 2;
-					jetSound.play(0,100);
+					
 				}
 			}
 		}
