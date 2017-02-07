@@ -1,5 +1,6 @@
 
 package emptyLib._3D.WebSite.Splash {
+	import cuatroPlumasUI.GrayApp.Gauge;
 	import flash.display.Sprite;
 	import flash.display.Bitmap;
 	import flash.ui.Keyboard;
@@ -64,6 +65,8 @@ package emptyLib._3D.WebSite.Splash {
 		protected var startBtnImg:Bitmap;
 		protected var startBtn:Sprite;
 		protected var started:Boolean = false;
+		protected var speedGauge:Gauge;
+		protected var max_speed:int = 35;
 		
 		public function SadHill():void {
 			super();
@@ -150,6 +153,10 @@ package emptyLib._3D.WebSite.Splash {
 			less_elevationBtn.y = 360;
 			this.less_elevationBtn.addEventListener(MouseEvent.CLICK, decreaseElevation);
 				
+			this.speedGauge = new Gauge(0, this.max_speed, "speed");
+			this.addChild(this.speedGauge);
+			this.speedGauge.x = 370;
+			this.speedGauge.y = 385;	
 		}
 		
 		protected function initKeyEvts(e:Event):void {
@@ -179,7 +186,7 @@ package emptyLib._3D.WebSite.Splash {
 		}
 		
 		protected function ThrottlePlus():void{
-			if(this.mig_speed < 35){
+			if(this.mig_speed < this.max_speed){
 				this.mig_speed += 4;
 			}
 		}
@@ -308,6 +315,7 @@ package emptyLib._3D.WebSite.Splash {
 			good.text = "зет:" + Horse.z.toString();
             mig_rotation.text = "RotY:" + Horse.rotationY.toString();
 			speed_gauge.text = "спид:" + mig_speed.toString();
+			speedGauge.updateValue(mig_speed);
 			if(this.flag == 2 && this.started){
 				if(this.mig_speed > 0){
 					Horse.z += mig_speed;
